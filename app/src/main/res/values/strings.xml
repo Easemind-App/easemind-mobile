@@ -17,6 +17,22 @@
     <string name="home">Home</string>
     <string name="journal">Journal</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kg">Kg</string>
+    <string name="next">Continue</string>
+    <string name="cm">cm</string>
+    <string name="face_recognation">We need a clear view of your face. Please look straight into the camera</string>
+    <string name="analyze">Analyze</string>
+    <string name="write_your_entry">Write your entry</string>
+    <string name="subjudul_journal">Anything else on how you’re feeling?</string>
+    <string name="sleep_quality">How would you rate your sleep quality?</string>
+    <string name="very_poor"><font size="14">Very Poor</font>\n\<font size="9">&lt; 3 Hours</font></string>
+    <string name="poor"><font size="14">Poor</font>\n\<font size="9">3-4 Hours</font></string>
+    <string name="average"><font size="14">Average</font>\n\<font size="9">5 Hours</font></string>
+    <string name="good"><font size="14">Good</font>\n\<font size="9">6-7 Hours</font></string>
+    <string name="excellent"><font size="14">Excellent</font>\n\<font size="9">7-9Hours</font></string>
+    <string name="camera">Camera</string>
+    <string name="question_1">Question 1</string>
+    <string name="counter_1">1/5</string>
+
 </resources>

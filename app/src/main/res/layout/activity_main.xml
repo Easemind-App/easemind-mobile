@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/yellow"
-    tools:context=".MainActivity">
+    tools:context=".ui.homepage.MainActivity">
 
 
         <LinearLayout
@@ -72,7 +72,6 @@
                 android:background="@drawable/blue_button_bg"
                 android:text="@string/checkup_button"
                 android:textColor="@color/white">
-
             </androidx.appcompat.widget.AppCompatButton>
 
         </LinearLayout>
@@ -177,11 +176,5 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/light_grey"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/bottom_nav_bar" />
+        style="@style/BottomNavigationViewStyle"/>
 </RelativeLayout>
