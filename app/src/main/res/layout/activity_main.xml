@@ -69,11 +69,9 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/blue_button_bg"
+                android:background="@drawable/button_square_blue"
                 android:text="@string/checkup_button"
-                android:textColor="@color/white">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -111,7 +109,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/gradient_card"
+                    android:background="@drawable/color_gradient_card"
                     android:orientation="vertical">
 
                 </LinearLayout>
@@ -136,7 +134,7 @@
                     android:id="@+id/daily_journal"
                     android:layout_width="match_parent"
                     android:layout_height="108dp"
-                    android:background="@drawable/gradient_card"
+                    android:background="@drawable/color_gradient_card"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -145,7 +143,7 @@
                         android:layout_width="216dp"
                         android:layout_height="75dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/daily_journal" />
+                        app:srcCompat="@drawable/img_daily_journal" />
 
                     <LinearLayout
                         android:layout_width="273dp"
@@ -184,21 +182,6 @@
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_nav_bar" />
-
-    <Button
-        android:id="@+id/google_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:drawableStart="@drawable/google_icon"
-        android:drawablePadding="8dp"
-        android:padding="8dp"
-        android:text="@string/google_login"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/hello_world"
-        app:layout_constraintStart_toStartOf="@id/hello_world" />
 
 
 </RelativeLayout>
