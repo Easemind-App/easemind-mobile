@@ -17,16 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="20dp"-->
-        <!--            android:fontFamily="@font/plusjakartasans_bold"-->
-        <!--            android:textSize="16sp"-->
-        <!--            android:textColor="@color/blue"-->
-        <!--            android:text="@string/tab_halaman" />-->
-
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -44,20 +34,20 @@
             android:layout_width="76dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
             android:text="@string/name"
-            android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="14sp"
+            android:gravity="center"
+            android:text="@string/email"
             android:textColor="#67686B"
-            android:text="@string/email" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -151,5 +141,11 @@
 
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
 </RelativeLayout>
