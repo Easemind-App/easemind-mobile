@@ -5,7 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.profile.profileFragment.ProfileFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+
 
     <LinearLayout
         android:id="@+id/profile"
@@ -34,36 +42,34 @@
             android:layout_width="76dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
             android:text="@string/name"
-            android:textSize="16sp" />
+            android:fontFamily="@font/plusjakartasans_bold"
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
-            android:text="@string/email"
+            android:fontFamily="@font/plusjakartasans_bold"
+            android:textSize="14sp"
             android:textColor="#67686B"
-            android:textSize="14sp" />
+            android:text="@string/email" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/profile"
-        android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:paddingTop="10dp"
-        android:orientation="vertical">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="465dp"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -78,23 +84,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"
-                    android:gravity="center"
-                    android:text="@string/age"
-                    android:textSize="14sp"
                     android:fontFamily="@font/plusjakartasans_bold"
-                    android:textColor="@color/black"/>
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/age_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"
-                    android:gravity="center"
-                    android:text="@string/age_description"
-                    android:textSize="14sp"
                     android:fontFamily="@font/plusjakartasans_regular"
-                    android:textColor="@color/black"/>
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/age_description"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </TableRow>
 
             <TableRow
@@ -105,23 +112,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"
-                    android:gravity="center"
-                    android:text="@string/gender"
-                    android:textSize="14sp"
                     android:fontFamily="@font/plusjakartasans_bold"
-                    android:textColor="@color/black"/>
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/gender"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/gender_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:padding="8dp"
-                    android:gravity="center"
-                    android:text="@string/gender_description"
-                    android:textSize="14sp"
                     android:fontFamily="@font/plusjakartasans_regular"
-                    android:textColor="@color/black"/>
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="@string/gender_description"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
             </TableRow>
         </TableLayout>
 
@@ -140,12 +148,5 @@
         </androidx.appcompat.widget.AppCompatButton>
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
 
 </RelativeLayout>

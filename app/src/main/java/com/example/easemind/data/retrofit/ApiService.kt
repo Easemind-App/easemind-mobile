@@ -1,6 +1,7 @@
 package com.example.easemind.data.retrofit
 
 import com.example.easemind.data.response.AuthenticationResponse
+import com.example.easemind.data.response.EditProfileResponse
 import com.example.easemind.data.response.UserResponse
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -20,16 +21,16 @@ interface ApiService {
 
     @GET("profile")
     suspend fun getUser (
-//        @Header("Authorization") token: String
+        @Header("Authorization") token: String
     ) : UserResponse
 
 
     @PUT("profile/edit")
-    suspend fun editProfile(
-//        @Header("Authorization") token: String
-        @Part("username") username: RequestBody,
-        @Part("age") age: RequestBody,
-        @Part("gender") gender: RequestBody,
-    )
+    fun editProfile(
+        @Header("Authorization") token: String,
+        @Part("username") username: RequestBody?,
+        @Part("age") age: RequestBody?,
+        @Part("gender") gender: RequestBody?
+    ) : Call<EditProfileResponse>
 
 }

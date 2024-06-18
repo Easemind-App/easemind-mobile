@@ -1,4 +1,4 @@
-package com.example.easemind.ui.profile
+package com.example.easemind.ui.profile.editProfileFragment
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
