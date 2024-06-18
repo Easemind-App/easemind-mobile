@@ -9,6 +9,7 @@ import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.ui.homepage.MainActivity
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityProfileBinding
+import com.example.easemind.ui.profile.profileFragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {

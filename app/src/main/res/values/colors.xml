@@ -5,4 +5,23 @@
     <color name="yellow">#F8D779</color>
     <color name="blue">#3870E1</color>
     <color name="light_grey">#F8F7F7</color>
+    <color name="gray">#D9D9D9</color>
+    <color name="gray_light">#F2F2F2</color>
+    <color name="gray_dark">#6E6E6E</color>
+
+    <!--  Main Colors  -->
+    <color name="blue_main">#3870E1</color>
+    <color name="orange_bg">#F4B75E</color>
+    <color name="yellow_bg">#F8D779</color>
+
+    <!--  Secondary Colors  -->
+    <color name="blue_secondary">#7BB7F7</color>
+    <color name="indigo_secondary">#5F70DA</color>
+
+    <!--  Tertiary Colors  -->
+    <color name="purple_subtle">#9B84DC</color>
+    <color name="indigo_subtle">#6D8AF1</color>
+    <color name="turquoise_subtle">#AFE2F5</color>
+    <color name="tangerine_subtle">#DC9B84</color>
+    <color name="yellow_subtle">#FDF9D9</color>
 </resources>
