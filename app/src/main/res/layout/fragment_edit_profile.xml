@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.editProfileFragment.EditProfileFragment">
 
-    <!-- Main Layout -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="414dp"
@@ -79,15 +78,17 @@
             android:text="@string/age"
             android:textSize="14sp" />
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_age"
+                android:id="@+id/age_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -114,7 +115,7 @@
             android:layout_marginRight="30dp">
 
             <AutoCompleteTextView
-                android:id="@+id/dropdown_gender"
+                android:id="@+id/gender_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -132,16 +133,12 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/button_square_blue"
             android:text="@string/save"
-            android:textColor="@color/white" />
+            android:textColor="@color/white">
+
+        </androidx.appcompat.widget.AppCompatButton>
 
     </LinearLayout>
 
-    <!-- ProgressBar -->
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+
 
 </FrameLayout>

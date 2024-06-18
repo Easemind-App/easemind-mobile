@@ -45,6 +45,14 @@ class ProfileFragment : Fragment() {
         btnEditProfile.setOnClickListener {
             Log.d("ProfileFragment", "Edit Profile button clicked")
             val editProfileFragment = EditProfileFragment()
+
+            // Mengirimkan data pengguna ke EditProfileFragment
+            val bundle = Bundle()
+            bundle.putString("username", binding.name.text.toString())
+            bundle.putString("age", binding.ageValue.text.toString())
+            bundle.putString("gender", binding.genderValue.text.toString())
+            editProfileFragment.arguments = bundle
+
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.container, editProfileFragment)
                 addToBackStack(null)
@@ -54,14 +62,6 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        profileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-
         authenticationViewModel.getSession().observe(viewLifecycleOwner) { userSession ->
             userSession?.let {
                 profileViewModel.getUserProfile()

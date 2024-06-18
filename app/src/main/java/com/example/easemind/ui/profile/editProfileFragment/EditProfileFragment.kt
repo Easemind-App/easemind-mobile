@@ -12,7 +12,6 @@ import com.example.easemind.data.pref.UserModel
 import com.example.easemind.databinding.FragmentEditProfileBinding
 import com.example.easemind.ui.authentication.AuthenticationViewModel
 import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class EditProfileFragment : Fragment() {
@@ -37,17 +36,22 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeSession()
         setupViews()
-        observeViewModel()
+    }
+
+    private fun observeSession() {
+        authenticationViewModel.getSession().observe(viewLifecycleOwner) { user ->
+            this.user = user
+            binding.name.text = user.username
+            binding.ageValue.setText(user.age)
+            binding.genderValue.setText(user.gender)
+        }
     }
 
     private fun setupViews() {
-        binding.save.setOnClickListener{editProfile()}
-        authenticationViewModel.getSession().observe(requireActivity()) {
-            user = it
-            binding.name.setText(it.username)
-            binding.age.setText(it.age)
-            binding.gender.setText(it.gender)
+        binding.save.setOnClickListener {
+            editProfile()
         }
 
         editProfileViewModel.editProfile.observe(viewLifecycleOwner) { editProfileResponse ->
@@ -58,45 +62,15 @@ class EditProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to change profile", Toast.LENGTH_SHORT).show()
             }
         }
-
-        editProfileViewModel.isLoading.observe(requireActivity()) { isLoading ->
-            if (isLoading) {
-                showLoading(true)
-            } else {
-                showLoading(false)
-            }
-        }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun observeViewModel() {
-        editProfileViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.progressBar.visibility = View.VISIBLE
-            } else {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-
-        editProfileViewModel.editProfile.observe(viewLifecycleOwner) {
-            // Handle edit profile response if needed
-            Snackbar.make(binding.root, "Profile updated successfully", Snackbar.LENGTH_SHORT)
-                .show()
-        }
     }
 
     private fun editProfile() {
         val username = binding.name.text?.toString()
-        val age = binding.editTextAge.text?.toString()
-        val gender = binding.gender.text?.toString()
+        val age = binding.ageValue.text?.toString()
+        val gender = binding.genderValue.text?.toString()
 
         lifecycleScope.launch {
             editProfileViewModel.editProfile(username, age, gender)
         }
-
     }
-
 }

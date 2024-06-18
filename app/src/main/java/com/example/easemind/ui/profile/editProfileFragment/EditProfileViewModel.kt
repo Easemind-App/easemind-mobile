@@ -18,15 +18,15 @@ import retrofit2.Response
 
 class EditProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+//    private val _isLoading = MutableLiveData<Boolean>()
+//    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _editProfile = MutableLiveData<EditProfileResponse>()
     val editProfile: LiveData<EditProfileResponse> = _editProfile
 
     suspend fun editProfile(username: String?, age: String?, gender: String?) {
-        _isLoading.value = true
-        val token = userRepository.getSession().first().token
+//        _isLoading.value = true
+        val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDlZMWZXbWtZRGZPdkVCa25YZyIsImlhdCI6MTcxODQ1ODI1NSwiZXhwIjoxNzE5MzIyMjU1fQ.Z059aEUb6AzEQJlXQ9agYyJP3l66A3Xc6-HaxHzmKm4"
         val authorization = "Bearer $token"
 
         val usernameBody = username?.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -39,7 +39,7 @@ class EditProfileViewModel(private val userRepository: UserRepository) : ViewMod
                 call: Call<EditProfileResponse>,
                 response: Response<EditProfileResponse>
             ) {
-                _isLoading.value = false
+//                _isLoading.value = false
                 if (response.isSuccessful) {
                     _editProfile.value = response.body()
                     response.body()?.let {
@@ -57,7 +57,7 @@ class EditProfileViewModel(private val userRepository: UserRepository) : ViewMod
                 }
             }
             override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
-                _isLoading.value = false
+//                _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })

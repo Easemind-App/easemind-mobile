@@ -5,71 +5,56 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     tools:context=".ui.profile.profileFragment.ProfileFragment">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
-
     <LinearLayout
-        android:id="@+id/profile"
-        android:layout_width="414dp"
-        android:layout_height="258dp"
-        android:gravity="center"
+        android:id="@+id/profile_data_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingTop="10dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardCornerRadius="75dp">
-
-            <ImageView
-                android:id="@+id/image_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="76dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/name"
-            android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/email"
+        <LinearLayout
+            android:id="@+id/profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="14sp"
-            android:textColor="#67686B"
-            android:text="@string/email" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardCornerRadius="75dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="265dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="465dp"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
+                <ImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/plusjakartasans_bold"
+                android:gravity="center"
+                android:text="@string/name"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/plusjakartasans_bold"
+                android:gravity="center"
+                android:text="@string/email"
+                android:textColor="#67686B"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
         <TableLayout
             android:layout_width="match_parent"
@@ -143,10 +128,9 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/button_square_blue"
             android:text="@string/edit_profile"
-            android:textColor="@color/white">
-
-        </androidx.appcompat.widget.AppCompatButton>
+            android:textColor="@color/white" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

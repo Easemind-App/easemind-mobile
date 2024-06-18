@@ -16,11 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class MainActivity : AppCompatActivity() {
-
-    private  lateinit var binding: ActivityMainBinding
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-
-class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     private  lateinit var binding: ActivityMainBinding
     lateinit var bottomNavigationView: BottomNavigationView
