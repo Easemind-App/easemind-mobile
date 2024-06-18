@@ -23,6 +23,7 @@ interface ApiService {
 //        @Header("Authorization") token: String
     ) : UserResponse
 
+
     @PUT("profile/edit")
     suspend fun editProfile(
 //        @Header("Authorization") token: String
@@ -30,4 +31,5 @@ interface ApiService {
         @Part("age") age: RequestBody,
         @Part("gender") gender: RequestBody,
     )
+
 }

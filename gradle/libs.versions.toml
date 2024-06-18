@@ -14,12 +14,12 @@ loggingInterceptor = "4.11.0"
 material = "1.12.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
-cameraxVersion = "1.2.3"
 lifecycleRuntimeKtx = "2.8.1"
 activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 playServicesAuth = "21.2.0"
 retrofit = "2.9.0"
+cameraxVersion = "1.2.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

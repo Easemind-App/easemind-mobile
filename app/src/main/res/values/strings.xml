@@ -22,6 +22,20 @@
     <string name="take_care_your_health">Take care your health</string>
     <string name="daily_journal">Daily Journal</string>
 
+<<<<<<< HEAD
+=======
+    <!--  Utils & Misc.  -->
+    <string name="easemind">EaseMind</string>
+    <string name="save">Save</string>
+    <string name="tab_halaman">Page Halaman</string>
+    <string name="login">Login</string>
+
+    <!--  Authentication  -->
+    <string name="google_login">Log in with Google</string>
+    <string name="welcome">We are so glad to see you here.</string>
+    <string name="welcome_to">welcome to</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> features/authentication
     <string name="kg">Kg</string>
     <string name="next">Continue</string>
     <string name="cm">cm</string>
@@ -48,6 +62,7 @@
     <string name="quotes_value">Eksperimen dengan proyek DIY atau kerajinan untuk melibatkan kreativitas Anda.</string>
     <string name="quotes">Quotes</string>
 
+<<<<<<< HEAD
 
     <!--  Utils & Misc.  -->
     <string name="easemind">EaseMind</string>
@@ -59,4 +74,6 @@
     <string name="google_login">Log in with Google</string>
     <string name="welcome">We are so glad to see you here.</string>
     <string name="welcome_to">welcome to</string>
+=======
+>>>>>>> features/authentication
 </resources>
