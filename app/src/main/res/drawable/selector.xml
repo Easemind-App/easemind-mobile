@@ -3,9 +3,11 @@
 
     <item
         android:state_selected="true"
-        android:color="@color/blue"/>
+        android:color="@color/blue"
+        android:drawable="@android:color/transparent"/>
     <item
         android:state_selected="false"
-        android:color="@color/black"/>
+        android:color="@color/black"
+        android:drawable="@android:color/transparent"/>
 
 </selector>

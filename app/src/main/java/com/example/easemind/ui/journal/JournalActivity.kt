@@ -1,22 +1,26 @@
-package com.example.easemind
+package com.example.easemind.ui.journal
 
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.easemind.R
+import com.example.easemind.databinding.ActivityJournalBinding
+import com.example.easemind.ui.homepage.MainActivity
+import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class JournalActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityJournalBinding
     lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_journal)
+        binding = ActivityJournalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        bottomNavigationView = binding.bottomNavView
         bottomNavigationView.selectedItemId = R.id.journal
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {

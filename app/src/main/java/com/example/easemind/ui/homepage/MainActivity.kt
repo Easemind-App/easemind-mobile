@@ -1,9 +1,14 @@
-package com.example.easemind
+package com.example.easemind.ui.homepage
 
+import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.easemind.ui.journal.JournalActivity
+import com.example.easemind.R
+import com.example.easemind.databinding.ActivityMainBinding
+import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -11,11 +16,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    private  lateinit var binding: ActivityMainBinding
     lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.checkupButton.setOnClickListener {
+            val intent = Intent(this, QuestionnaireActivity::class.java)
+            startActivity(intent)
+        }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -32,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.journal -> {
-                    val intent = Intent(this, AuthenticationActivity::class.java)
-                    startActivity(intent)
+                    val intent = Intent(this, JournalActivity::class.java)
+                    startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, 0).toBundle())
                     finish()
                 }
                 R.id.profile -> {

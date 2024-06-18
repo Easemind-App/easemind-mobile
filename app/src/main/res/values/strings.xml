@@ -6,7 +6,7 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>
-    <string name="age_description">18 y.o.</string>
+    <string name="age_description">18</string>
     <string name="gender_description">Female</string>
     <string name="name">Ririn</string>
     <string name="email">ririnzakiyah02@gmail.com</string>
@@ -32,4 +32,31 @@
     <string name="google_login">Log in with Google</string>
     <string name="welcome">We are so glad to see you here.</string>
     <string name="welcome_to">welcome to</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kg">Kg</string>
+    <string name="next">Continue</string>
+    <string name="cm">cm</string>
+    <string name="face_recognation">We need a clear view of your face. Please look straight into the camera</string>
+    <string name="analyze">Analyze</string>
+    <string name="write_your_entry">Write your entry</string>
+    <string name="subjudul_journal">Anything else on how you’re feeling?</string>
+    <string name="sleep_quality">How would you rate your sleep quality?</string>
+    <string name="very_poor"><font size="14">Very Poor</font>\n\<font size="9">&lt; 3 Hours</font></string>
+    <string name="poor"><font size="14">Poor</font>\n\<font size="9">3-4 Hours</font></string>
+    <string name="average"><font size="14">Average</font>\n\<font size="9">5 Hours</font></string>
+    <string name="good"><font size="14">Good</font>\n\<font size="9">6-7 Hours</font></string>
+    <string name="excellent"><font size="14">Excellent</font>\n\<font size="9">7-9Hours</font></string>
+    <string name="camera">Camera</string>
+    <string name="question_1">Question 1</string>
+    <string name="counter_1">1/5</string>
+    <string name="monday_3_june_2024">Monday, 3 June 2024</string>
+    <string name="bmi">BMI</string>
+    <string name="normal">Normal</string>
+    <string name="neutral">Neutral</string>
+    <string name="face_detection">Face Detection</string>
+    <string name="thoughts">Thoughts</string>
+    <string name="thoughts_value">Aww aku dimarahin mama</string>
+    <string name="quotes_value">Eksperimen dengan proyek DIY atau kerajinan untuk melibatkan kreativitas Anda.</string>
+    <string name="quotes">Quotes</string>
+
 </resources>
