@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.easemind.ui.JournalActivity
+import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.ui.homepage.MainActivity
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityProfileBinding

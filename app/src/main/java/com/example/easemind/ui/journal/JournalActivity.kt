@@ -1,4 +1,4 @@
-package com.example.easemind.ui
+package com.example.easemind.ui.journal
 
 import android.app.ActivityOptions
 import android.content.Intent

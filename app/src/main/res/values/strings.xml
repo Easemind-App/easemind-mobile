@@ -2,7 +2,7 @@
     <string name="app_name">Easemind</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>
-    <string name="age_description">18 y.o.</string>
+    <string name="age_description">18</string>
     <string name="gender_description">Female</string>
     <string name="name">Ririn</string>
     <string name="email">ririnzakiyah02@gmail.com</string>
@@ -34,5 +34,14 @@
     <string name="camera">Camera</string>
     <string name="question_1">Question 1</string>
     <string name="counter_1">1/5</string>
+    <string name="monday_3_june_2024">Monday, 3 June 2024</string>
+    <string name="bmi">BMI</string>
+    <string name="normal">Normal</string>
+    <string name="neutral">Neutral</string>
+    <string name="face_detection">Face Detection</string>
+    <string name="thoughts">Thoughts</string>
+    <string name="thoughts_value">Aww aku dimarahin mama</string>
+    <string name="quotes_value">Eksperimen dengan proyek DIY atau kerajinan untuk melibatkan kreativitas Anda.</string>
+    <string name="quotes">Quotes</string>
 
 </resources>
