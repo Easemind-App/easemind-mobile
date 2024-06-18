@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
+import com.example.easemind.databinding.ActivityMainBinding
 
 import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.profile.ProfileActivity
@@ -17,8 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    private  lateinit var binding: ActivityMainBinding
     lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
