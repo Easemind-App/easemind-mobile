@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easemind.R
+import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.homepage.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {

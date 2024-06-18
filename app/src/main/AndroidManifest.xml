@@ -19,7 +19,7 @@
         android:theme="@style/Apptheme"
         tools:targetApi="31">
         <activity
-            android:name=".AuthenticationActivity"
+            android:name=".ui.authentication.AuthenticationActivity"
             android:exported="false" />
         <activity
             android:name=".ui.journal.DetailJournalActivity"

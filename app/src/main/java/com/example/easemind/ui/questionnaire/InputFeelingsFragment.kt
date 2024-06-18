@@ -17,5 +17,9 @@ class InputFeelingsFragment : Fragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_input_feelings, container, false)
     }
 
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
+    }
+
 
 }
