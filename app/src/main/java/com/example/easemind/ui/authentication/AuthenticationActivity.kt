@@ -1,5 +1,6 @@
 package com.example.easemind
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.easemind.ui.homepage.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -32,7 +34,7 @@ class AuthenticationActivity : AppCompatActivity() {
         signInLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if (result.resultCode == RC_SIGN_IN) {
+            if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleSignInResult(task)
             } else {
@@ -83,9 +85,5 @@ class AuthenticationActivity : AppCompatActivity() {
                 "failed code=", e.statusCode.toString()
             )
         }
-    }
-
-    companion object {
-        const val RC_SIGN_IN = 9001
     }
 }

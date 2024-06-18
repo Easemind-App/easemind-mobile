@@ -78,7 +78,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/blue_button_bg"
+            android:background="@drawable/button_circle_blue"
             android:text="@string/camera"
             android:textColor="@color/white">
 
@@ -92,7 +92,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/blue_button_bg"
+            android:background="@drawable/button_square_blue"
             android:text="@string/next"
             android:textColor="@color/white">
         </androidx.appcompat.widget.AppCompatButton>
