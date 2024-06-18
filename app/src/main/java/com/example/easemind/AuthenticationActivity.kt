@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -14,10 +16,11 @@ import com.google.android.gms.tasks.Task
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var signInLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_authentication)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("http://921770411144-uq772vkuvgc5qhmneblc7e85ghto4udo.apps.googleusercontent.com")
@@ -25,6 +28,18 @@ class AuthenticationActivity : AppCompatActivity() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        signInLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RC_SIGN_IN) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleSignInResult(task)
+            } else {
+                Log.e("Google Sign-In Code", result.resultCode.toString())
+                Log.e("Google Sign-In", "Sign-in failed")
+            }
+        }
 
         val googleLoginButton = findViewById<Button>(R.id.btn_google_login)
         googleLoginButton.setOnClickListener {
@@ -34,25 +49,7 @@ class AuthenticationActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(
-            signInIntent, RC_SIGN_IN
-        )
-    }
-
-    private fun revokeAccess() {
-        mGoogleSignInClient.revokeAccess()
-            .addOnCompleteListener(this) {
-                // TODO: update UI
-            }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
+        signInLauncher.launch(signInIntent)
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -71,13 +68,15 @@ class AuthenticationActivity : AppCompatActivity() {
             val googleProfilePicURL = account?.photoUrl.toString()
             Log.i("Google Profile Pic URL", googleProfilePicURL)
 
+
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("google_first_name", googleFirstName)
                 putExtra("google_last_name", googleLastName)
                 putExtra("google_email", googleEmail)
                 putExtra("google_profile_pic_url", googleProfilePicURL)
             }
-            this.startActivity(intent)
+            startActivity(intent)
+            finish()
         } catch (e: ApiException) {
             // Login Failed
             Log.e(
