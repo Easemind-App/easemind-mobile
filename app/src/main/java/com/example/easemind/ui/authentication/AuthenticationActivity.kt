@@ -44,6 +44,7 @@ class AuthenticationActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                Log.d("AuthenticationActivity", "Google sign-in successful")
                 handleSignInResult(task)
             } else {
                 Log.e("Google Sign-In Code", result.resultCode.toString())
@@ -58,11 +59,8 @@ class AuthenticationActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
-        if (signInIntent != null) {
-            signInLauncher.launch(signInIntent)
-        } else {
-            Log.e("Google Sign-In", "Sign-in intent is null")
-        }
+        Log.d("AuthenticationActivity", "Launching Google sign-in intent")
+        signInLauncher.launch(signInIntent)
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
