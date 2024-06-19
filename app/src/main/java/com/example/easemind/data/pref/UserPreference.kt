@@ -18,6 +18,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             preferences[EMAIL_KEY] = user.email
             preferences[USERNAME] = user.username
             preferences[TOKEN_KEY] = user.token
+            preferences[PROFILE_PIC] = user.profilePicture
         }
     }
 
