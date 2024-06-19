@@ -6,6 +6,8 @@ import com.example.easemind.data.pref.UserPreference
 import com.example.easemind.data.response.JournalsItem
 import com.example.easemind.data.retrofit.ApiService
 import kotlinx.coroutines.Dispatchers
+import com.example.easemind.data.response.UserResponse
+import com.example.easemind.data.retrofit.ApiConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
@@ -32,6 +34,10 @@ class UserRepository private constructor(
                 emptyList()
             }
         }
+    }
+
+    suspend fun getUserProfile(token: String): UserResponse {
+        return ApiConfig.getApiService().getUser("Bearer $token")
     }
 
     companion object {

@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="21dp"
+    android:paddingTop="21dp"
     tools:context=".ui.questionnaire.QuestionSleepPatternsFragment">
 
     <LinearLayout
@@ -65,13 +66,14 @@
             android:text="@string/sleep_quality"
             android:textSize="24sp" />
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/very_poor_btn"
             style="@android:style/Widget.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/border"
             android:text="@string/very_poor"
             android:textColor="@color/button_text_selector">
 
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/border"
             android:text="@string/poor"
             android:textColor="@color/button_text_selector">
 
@@ -95,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/border"
             android:text="@string/average"
             android:textColor="@color/button_text_selector">
 
@@ -107,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/border"
             android:text="@string/good"
             android:textColor="@color/button_text_selector">
 
@@ -119,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/border"
             android:text="@string/excellent"
             android:textColor="@color/button_text_selector">
 
