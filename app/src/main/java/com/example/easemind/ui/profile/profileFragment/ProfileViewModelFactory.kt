@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.easemind.data.repository.UserRepository
+import com.example.easemind.data.retrofit.ApiConfig
 import com.example.easemind.di.UserInjection
 
 class ProfileViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -24,7 +25,7 @@ class ProfileViewModelFactory(private val repository: UserRepository) : ViewMode
 
         fun getInstance(context: Context): ProfileViewModelFactory {
             return INSTANCE ?: synchronized(this) {
-                val repository = UserInjection.provideRepository(context)
+                val repository = UserInjection.provideRepository(context, ApiConfig.getApiService())
                 ProfileViewModelFactory(repository).also {
                     INSTANCE = it
                 }
