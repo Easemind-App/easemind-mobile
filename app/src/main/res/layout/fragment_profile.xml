@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".ui.profile.profileFragment.ProfileFragment">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
-
-
     <LinearLayout
-        android:id="@+id/profile"
-        android:layout_width="414dp"
-        android:layout_height="258dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:paddingBottom="20dp"
         android:gravity="center"
+        android:background="@color/yellow"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,41 +30,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
         </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="76dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
             android:text="@string/name"
-            android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:fontFamily="@font/plusjakartasans_bold"
-            android:textSize="14sp"
+            android:gravity="center"
+            android:text="@string/email"
             android:textColor="#67686B"
-            android:text="@string/email" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="265dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="465dp"
+        android:layout_width="409dp"
+        android:layout_height="471dp"
+        android:layout_marginTop="280dp"
         android:orientation="vertical"
-        android:paddingTop="10dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -78,7 +71,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -143,10 +137,10 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/button_square_blue"
             android:text="@string/edit_profile"
-            android:textColor="@color/white">
-
-        </androidx.appcompat.widget.AppCompatButton>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-</RelativeLayout>
+
+
+</FrameLayout>
