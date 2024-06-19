@@ -30,16 +30,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userViewModel.getSession().observe(this) { user ->
-            if (!user.isLogin) {
-                Log.d("MainActivity", "User not logged in")
-                startActivity(Intent(this, AuthenticationActivity::class.java))
-                finish() // Menutup MainActivity jika pengguna belum login
-            } else {
-                Log.d("MainActivity", "User logged in")
-                initViews()
-            }
+        initViews()
+
+        binding.checkupButton.setOnClickListener {
+            val intent = Intent(this, QuestionnaireActivity::class.java)
+            startActivity(intent)
         }
+
+
+//        userViewModel.getSession().observe(this) { user ->
+//            if (!user.isLogin) {
+//                Log.d("MainActivity", "User not logged in")
+//                startActivity(Intent(this, AuthenticationActivity::class.java))
+//                finish() // Menutup MainActivity jika pengguna belum login
+//            } else {
+//                Log.d("MainActivity", "User logged in")
+//                initViews()
+//            }
+//        }
     }
 
     private fun initViews() {

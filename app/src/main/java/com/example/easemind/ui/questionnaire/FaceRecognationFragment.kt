@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -60,6 +61,7 @@ class FaceRecognationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.uploadBtn.setOnClickListener { startGallery() }
         binding.cameraBtn.setOnClickListener { startCamera() }
         binding.arrowBack.setOnClickListener {
             requireActivity().onBackPressed()
@@ -77,13 +79,13 @@ class FaceRecognationFragment : Fragment() {
         }
 
 
-        // Ensure the view binding is set properly
-        binding.next.setOnClickListener {
-            currentImageUri?.let {
-                Log.d("Image URI", "Image to be analyzed: $it")
-                // Add analysis logic here
-            }
-        }
+//        // Ensure the view binding is set properly
+//        binding.next.setOnClickListener {
+//            currentImageUri?.let {
+//                Log.d("Image URI", "Image to be analyzed: $it")
+//                // Add analysis logic here
+//            }
+//        }
     }
 
     private fun startCamera() {
@@ -97,6 +99,22 @@ class FaceRecognationFragment : Fragment() {
         if (it.resultCode == CameraActivity.CAMERAX_RESULT) {
             currentImageUri = it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
             showImage()
+        }
+    }
+
+    private fun startGallery() {
+        // TODO: Mendapatkan gambar dari Gallery.
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery = registerForActivityResult(
+        ActivityResultContracts.PickVisualMedia()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            currentImageUri = uri
+            showImage()
+        } else {
+            Log.d("Photo Picker", "No media selected")
         }
     }
 

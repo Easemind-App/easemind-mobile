@@ -86,11 +86,9 @@ android {
             implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
             implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+            implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+            implementation("org.tensorflow:tensorflow-lite-metadata:0.4.4")
 
         }
     }
-}
-dependencies {
-    implementation(libs.tensorflow.lite.support)
-    implementation(libs.tensorflow.lite.metadata)
 }
