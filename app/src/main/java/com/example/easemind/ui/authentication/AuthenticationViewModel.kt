@@ -10,6 +10,7 @@ import com.example.easemind.data.AuthenticationRequest
 import com.example.easemind.data.pref.UserModel
 import com.example.easemind.data.repository.UserRepository
 import com.example.easemind.data.response.AuthenticationResponse
+import com.example.easemind.data.response.JournalsItem
 import com.example.easemind.data.retrofit.ApiConfig
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -19,6 +20,9 @@ import retrofit2.Response
 class AuthenticationViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _user = MutableLiveData<AuthenticationResponse>()
     val loginUser: LiveData<AuthenticationResponse> = _user
+
+    private val _journal = MutableLiveData<List<JournalsItem>>()
+    val journal: LiveData<List<JournalsItem>> = _journal
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -54,6 +58,14 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
+    }
+
+    fun getJournal(token: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            _journal.value = userRepository.getJournal(token)
+            _isLoading.value = false
+        }
     }
 
 

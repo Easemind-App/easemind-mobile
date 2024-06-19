@@ -9,9 +9,9 @@
     tools:context=".ui.journal.DetailJournalActivity">
 
     <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="889dp"
-        android:layout_marginTop="21dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,9 +81,17 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/border"
                 android:layout_weight="1"
                 android:text="@string/quotes_value" />
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav_view"
+        style="@style/BottomNavigationViewStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
