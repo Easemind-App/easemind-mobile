@@ -16,11 +16,17 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.example.easemind.R
 import com.example.easemind.databinding.FragmentFaceRecognationBinding
+import com.example.easemind.helper.ImageClassifierHelper
+import com.example.storyapp.view.utils.reduceFileImage
+import com.example.storyapp.view.utils.uriToFile
+import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class FaceRecognationFragment : Fragment() {
 
     private var currentImageUri: Uri? = null
     private lateinit var binding: FragmentFaceRecognationBinding
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
+    private var classificationResult: Pair<String, Float>? = null
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -60,6 +66,7 @@ class FaceRecognationFragment : Fragment() {
         }
         binding.next.setOnClickListener{
             Log.d("FaceRecognationFragment", "Next button clicked")
+            analyzeImage()
             val inputFeelingsFragment = InputFeelingsFragment()
             val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
@@ -98,6 +105,56 @@ class FaceRecognationFragment : Fragment() {
             Log.d("Image URI", "showImage: $it")
             binding.imgQuestion4.setImageURI(it)
         }
+    }
+
+    private fun analyzeImage() {
+        // TODO: Menganalisa gambar yang berhasil ditampilkan.
+        currentImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
+            Log.d("Image Classification File", "showImage: ${imageFile.path}")
+
+            imageClassifierHelper = ImageClassifierHelper(
+                context = requireActivity(),
+                classifierListener = object : ImageClassifierHelper.ClassifierListener {
+                    override fun onError(error: String) {
+                        showToast(error)
+//                        showLoading(false)
+                    }
+
+                    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+                        results?.let {
+                            moveToResult(it)
+                        }
+                    }
+                }
+            )
+            imageClassifierHelper.classifyStaticImage(uri, requireActivity())
+        } ?: showToast(getString(R.string.empty_image_warning))
+    }
+
+    private fun moveToResult(results: List<Classifications>) {
+        val sortedCategories = results[0].categories.sortedByDescending { it?.score }
+        val topResult = sortedCategories.firstOrNull()
+
+        if (topResult != null) {
+            val label = topResult.label
+            val score = topResult.score ?: 0.0f
+
+            // Simpan hasil klasifikasi ke dalam variabel
+            classificationResult = Pair(label, score)
+
+            // Cetak log hasil
+            Log.d("Classification Result", "Label: $label, Score: $score")
+
+        } else {
+            showToast("No result found")
+        }
+
+    }
+
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
