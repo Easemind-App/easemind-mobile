@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
@@ -20,8 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    private  lateinit var binding: ActivityMainBinding
     lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var binding: ActivityMainBinding
     private val authenticationViewModel by viewModels<AuthenticationViewModel> {
         AuthenticationViewModelFactory.getInstance(context = this)
     }
@@ -29,20 +30,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         authenticationViewModel.getSession().observe(this) { session ->
             val username = session.username
             binding.name.text = "Hi, $username! 👋"
         }
 
-        setContentView(binding.root)
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // TODO: parse data passed to views
+
+        authenticationViewModel.getSession().observe(this) { user ->
+            binding.name.text = user.username
+            Glide.with(this)
+                .load(user.profilePicture)
+                .into(this.binding.imageProfile)
+        }
 
         binding.checkupButton.setOnClickListener {
             val intent = Intent(this, QuestionnaireActivity::class.java)
@@ -80,12 +86,5 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-    }
-
-    companion object {
-        const val EXTRA_USER_FIRST_NAME = "google_first_name"
-        const val EXTRA_USER_LAST_NAME = "google_last_name"
-        const val EXTRA_USER_EMAIL = "google_email"
-        const val EXTRA_USER_PIC = "google_profile_pic_url"
     }
 }
