@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import com.example.easemind.R
 import com.example.easemind.databinding.FragmentFaceRecognationBinding
 
-class FaceRecognationFragment : Fragment() {
+class FaceRecognationFragment : Fragment(){
 
     private var currentImageUri: Uri? = null
     private lateinit var binding: FragmentFaceRecognationBinding
@@ -47,8 +47,6 @@ class FaceRecognationFragment : Fragment() {
     ): View {
         binding = FragmentFaceRecognationBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,23 +56,19 @@ class FaceRecognationFragment : Fragment() {
         binding.arrowBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        binding.next.setOnClickListener{
-            Log.d("FaceRecognationFragment", "Next button clicked")
-            val inputFeelingsFragment = InputFeelingsFragment()
-            val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.container, inputFeelingsFragment, InputFeelingsFragment::class.java.simpleName)
-                addToBackStack(null)
-                commit()
-            }
-        }
-
 
         // Ensure the view binding is set properly
         binding.next.setOnClickListener {
             currentImageUri?.let {
                 Log.d("Image URI", "Image to be analyzed: $it")
                 // Add analysis logic here
+            }
+            val inputFeelingsFragment = InputFeelingsFragment()
+            val fragmentManager = parentFragmentManager
+            fragmentManager.beginTransaction().apply {
+                replace(R.id.container, inputFeelingsFragment, InputFeelingsFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
             }
         }
     }

@@ -35,11 +35,11 @@ class QuestionTBFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         if (v.id == R.id.next) {
-            Log.d("QuestionTBFragment", "Next button clicked")
-            val questionSleepPatternFragment = QuestionSleepPatternsFragment()
+            Log.d("FaceRecognationFragment", "Next button clicked")
+            val faceRecognationFragment = FaceRecognationFragment()
             val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
-                replace(R.id.container, questionSleepPatternFragment, QuestionSleepPatternsFragment::class.java.simpleName)
+                replace(R.id.container, faceRecognationFragment, FaceRecognationFragment::class.java.simpleName)
                 addToBackStack(null)
                 commit()
             }

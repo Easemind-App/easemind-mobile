@@ -32,11 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authenticationViewModel.getSession().observe(this) { session ->
-            val username = session.username
-            binding.name.text = "Hi, $username! 👋"
-        }
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -44,7 +39,8 @@ class MainActivity : AppCompatActivity() {
 
 
         authenticationViewModel.getSession().observe(this) { user ->
-            binding.name.text = user.username
+            val username = user.username
+            binding.name.text = getString(R.string.name, username)
             Glide.with(this)
                 .load(user.profilePicture)
                 .into(this.binding.imageProfile)

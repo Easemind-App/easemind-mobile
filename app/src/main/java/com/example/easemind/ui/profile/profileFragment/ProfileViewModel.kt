@@ -1,5 +1,6 @@
 package com.example.easemind.ui.profile.profileFragment
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
     fun getUserProfile() {
         viewModelScope.launch {
             val token = userRepository.getSession().first().token
+            Log.d("token", token)
             val authorization = "Bearer $token"
             try {
                 val userResponse = userRepository.getUserProfile(authorization)
