@@ -59,6 +59,7 @@
     <string name="thoughts_value">Aww aku dimarahin mama</string>
     <string name="quotes_value">Eksperimen dengan proyek DIY atau kerajinan untuk melibatkan kreativitas Anda.</string>
     <string name="quotes">Quotes</string>
+    <string name="emotion">Emotion</string>
 
     <string-array name="gender">
         <item>Laki-Laki</item>

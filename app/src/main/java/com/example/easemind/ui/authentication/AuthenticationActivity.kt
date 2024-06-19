@@ -4,11 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.easemind.R
+import com.example.easemind.databinding.ActivityAuthenticationBinding
 import com.example.easemind.ui.homepage.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -20,10 +21,15 @@ import com.google.android.gms.tasks.Task
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var signInLauncher: ActivityResultLauncher<Intent>
+    private lateinit var binding: ActivityAuthenticationBinding
+    private val authenticationViewModel by viewModels<AuthenticationViewModel> {
+        AuthenticationViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authentication)
+        binding = ActivityAuthenticationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("http://921770411144-uq772vkuvgc5qhmneblc7e85ghto4udo.apps.googleusercontent.com")
@@ -44,15 +50,18 @@ class AuthenticationActivity : AppCompatActivity() {
             }
         }
 
-        val googleLoginButton = findViewById<Button>(R.id.btn_google_login)
-        googleLoginButton.setOnClickListener {
+        binding.btnGoogleLogin.setOnClickListener {
             signIn()
         }
     }
 
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
-        signInLauncher.launch(signInIntent)
+        if (signInIntent != null) {
+            signInLauncher.launch(signInIntent)
+        } else {
+            Log.e("Google Sign-In", "Sign-in intent is null")
+        }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -62,6 +71,8 @@ class AuthenticationActivity : AppCompatActivity() {
             )
 
             // Login Successful
+            val googleId = account?.id ?: ""
+            Log.i("Google ID", googleId)
             val googleFirstName = account?.givenName ?: ""
             Log.i("Google First Name", googleFirstName)
             val googleLastName = account?.familyName ?: ""
@@ -71,6 +82,10 @@ class AuthenticationActivity : AppCompatActivity() {
             val googleProfilePicURL = account?.photoUrl.toString()
             Log.i("Google Profile Pic URL", googleProfilePicURL)
 
+            authenticationViewModel.login(googleEmail, googleId)
+            authenticationViewModel.loginUser.observe(this) {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
 
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("google_first_name", googleFirstName)
@@ -87,4 +102,5 @@ class AuthenticationActivity : AppCompatActivity() {
             )
         }
     }
+
 }
