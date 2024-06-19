@@ -6,18 +6,18 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>
-    <string name="age_description">18</string>
-    <string name="gender_description">Female</string>
-    <string name="name">Ririn</string>
-    <string name="email">ririnzakiyah02@gmail.com</string>
+    <string name="age_description" />
+    <string name="gender_description" />
+    <string name="name" />
+    <string name="email" />
 
     <!--  Homepage  -->
     <string name="home">Home</string>
     <string name="recap_of_your_feelings">Recap of your feelings</string>
+    <string name="homepage_description">Take a moment to explore your emotional well-being today using Easemind</string>
 
     <!--  Journal  -->
     <string name="journal">Journal</string>
-    <string name="homepage_description">description</string>
     <string name="checkup_button">Get Started With Your Checkup</string>
     <string name="take_care_your_health">Take care your health</string>
     <string name="daily_journal">Daily Journal</string>

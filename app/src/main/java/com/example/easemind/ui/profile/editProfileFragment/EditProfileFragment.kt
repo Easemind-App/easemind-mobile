@@ -2,7 +2,6 @@ package com.example.easemind.ui.profile.editProfileFragment
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,12 +76,13 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun editProfile() {
-        val username = binding.name.text?.toString()
+        val userName = binding.name.text?.toString()?.takeIf { it.isNotBlank() }
         val age = binding.ageValue.text?.toString()
-        val gender = binding.genderValue.text?.toString()
+        val genderText = binding.genderValue.text?.toString()
+        val gender = if (genderText == "Laki-laki") "L" else "P"
 
         lifecycleScope.launch {
-            editProfileViewModel.editProfile(username, age, gender)
+            editProfileViewModel.editProfile(userName, age, gender)
         }
     }
 }

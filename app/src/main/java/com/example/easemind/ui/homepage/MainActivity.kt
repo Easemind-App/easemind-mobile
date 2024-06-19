@@ -4,11 +4,14 @@ import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityMainBinding
+import com.example.easemind.ui.authentication.AuthenticationViewModel
+import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -19,10 +22,19 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     private  lateinit var binding: ActivityMainBinding
     lateinit var bottomNavigationView: BottomNavigationView
+    private val authenticationViewModel by viewModels<AuthenticationViewModel> {
+        AuthenticationViewModelFactory.getInstance(context = this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        authenticationViewModel.getSession().observe(this) { session ->
+            val username = session.username
+            binding.name.text = "Hi, $username! 👋"
+        }
+
         setContentView(binding.root)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
