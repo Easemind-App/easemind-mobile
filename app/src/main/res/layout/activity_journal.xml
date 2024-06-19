@@ -8,12 +8,16 @@
     android:layout_marginTop="21dp"
     tools:context=".ui.journal.JournalActivity">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_journal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ini activity Journal"
-        android:gravity="center">
-    </TextView>
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav_view"
+        android:layout_marginHorizontal="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listItem="@layout/item_journal" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
