@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.easemind.data.AuthenticationRequest
 import com.example.easemind.data.pref.UserModel
 import com.example.easemind.data.repository.UserRepository
 import com.example.easemind.data.response.AuthenticationResponse
@@ -34,7 +35,8 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
 
     fun login(email: String, username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().userAuthentication(email, username)
+        val request = AuthenticationRequest(email, username)
+        val client = ApiConfig.getApiService().userAuthentication(request)
         client.enqueue(object : Callback<AuthenticationResponse> {
             override fun onResponse(
                 call: Call<AuthenticationResponse>,

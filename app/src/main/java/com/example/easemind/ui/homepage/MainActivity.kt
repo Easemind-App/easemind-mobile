@@ -4,12 +4,16 @@ import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityMainBinding
 
 import com.example.easemind.ui.authentication.AuthenticationActivity
+import com.example.easemind.ui.authentication.AuthenticationViewModel
+import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -20,6 +24,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var binding: ActivityMainBinding
+    private val authenticationViewModel by viewModels<AuthenticationViewModel> {
+        AuthenticationViewModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +43,13 @@ class MainActivity : AppCompatActivity() {
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // TODO: parse data passed to views
+
+        authenticationViewModel.getSession().observe(this) { user ->
+            binding.tvName.text = user.username
+            Glide.with(this)
+                .load(user.profilePicture)
+                .into(this.binding.imageProfile)
+        }
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavigationView.selectedItemId = R.id.home
@@ -68,12 +81,5 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-    }
-
-    companion object {
-        const val EXTRA_USER_FIRST_NAME = "google_first_name"
-        const val EXTRA_USER_LAST_NAME = "google_last_name"
-        const val EXTRA_USER_EMAIL = "google_email"
-        const val EXTRA_USER_PIC = "google_profile_pic_url"
     }
 }

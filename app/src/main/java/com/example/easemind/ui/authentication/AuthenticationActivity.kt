@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.easemind.data.pref.UserModel
 import com.example.easemind.databinding.ActivityAuthenticationBinding
 import com.example.easemind.ui.homepage.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -32,7 +33,7 @@ class AuthenticationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("http://921770411144-uq772vkuvgc5qhmneblc7e85ghto4udo.apps.googleusercontent.com")
+            .requestIdToken("50083810953-09diep197rqmhkrl1p319equ4ks5gq4v.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -71,8 +72,6 @@ class AuthenticationActivity : AppCompatActivity() {
             )
 
             // Login Successful
-            val googleId = account?.id ?: ""
-            Log.i("Google ID", googleId)
             val googleFirstName = account?.givenName ?: ""
             Log.i("Google First Name", googleFirstName)
             val googleLastName = account?.familyName ?: ""
@@ -82,17 +81,13 @@ class AuthenticationActivity : AppCompatActivity() {
             val googleProfilePicURL = account?.photoUrl.toString()
             Log.i("Google Profile Pic URL", googleProfilePicURL)
 
-            authenticationViewModel.login(googleEmail, googleId)
+            authenticationViewModel.login(googleEmail, googleFirstName)
             authenticationViewModel.loginUser.observe(this) {
+                authenticationViewModel.saveSession(UserModel(googleEmail, googleFirstName, it.token, googleProfilePicURL))
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
 
-            val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("google_first_name", googleFirstName)
-                putExtra("google_last_name", googleLastName)
-                putExtra("google_email", googleEmail)
-                putExtra("google_profile_pic_url", googleProfilePicURL)
-            }
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         } catch (e: ApiException) {
