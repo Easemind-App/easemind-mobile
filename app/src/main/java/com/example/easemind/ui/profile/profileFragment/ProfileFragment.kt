@@ -49,6 +49,7 @@ class ProfileFragment : Fragment() {
             // Mengirimkan data pengguna ke EditProfileFragment
             val bundle = Bundle()
             bundle.putString("username", binding.name.text.toString())
+            bundle.putString("email", binding.email.text.toString())
             bundle.putString("age", binding.ageValue.text.toString())
             bundle.putString("gender", binding.genderValue.text.toString())
             editProfileFragment.arguments = bundle
@@ -79,7 +80,11 @@ class ProfileFragment : Fragment() {
             binding.name.text = it.userName
             binding.email.text = it.email
             binding.ageValue.text = it.age
-            binding.genderValue.text = it.gender
+            binding.genderValue.text = when (it.gender) {
+                "L" -> "Laki-laki"
+                "P" -> "Perempuan"
+                else -> it.gender
+            }
         }
     }
 }

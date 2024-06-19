@@ -26,18 +26,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars" />
+
         </androidx.cardview.widget.CardView>
 
-        <TextView
+        <EditText
             android:id="@+id/name"
-            android:layout_width="76dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
             android:text="@string/name"
-            android:fontFamily="@font/plusjakartasans_bold"
             android:textSize="16sp"
-            app:drawableEndCompat="@drawable/ic_edit_profile" />
+            android:background="@android:color/transparent"
+            app:drawableEndCompat="@drawable/ic_edit_profile"/>
 
         <TextView
             android:id="@+id/email"
@@ -54,7 +56,6 @@
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="471dp"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="260dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="@string/age_description" />
+                android:text="@string/age_description" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -117,8 +118,9 @@
             <AutoCompleteTextView
                 android:id="@+id/gender_value"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
+                android:inputType="none"
                 android:text="@string/gender_description" />
 
         </com.google.android.material.textfield.TextInputLayout>
