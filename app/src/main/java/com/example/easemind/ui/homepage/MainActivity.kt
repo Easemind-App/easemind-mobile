@@ -8,13 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityMainBinding
+
+import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.profile.ProfileActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-    private  lateinit var binding: ActivityMainBinding
+    lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +31,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        bottomNavigationView = binding.bottomNavView
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // TODO: parse data passed to views
+
+        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavigationView.selectedItemId = R.id.home
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -47,5 +59,21 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+    }
+
+    private fun signOut() {
+        mGoogleSignInClient.signOut()
+            .addOnCompleteListener(this) {
+                val intent = Intent(this, AuthenticationActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+    }
+
+    companion object {
+        const val EXTRA_USER_FIRST_NAME = "google_first_name"
+        const val EXTRA_USER_LAST_NAME = "google_last_name"
+        const val EXTRA_USER_EMAIL = "google_email"
+        const val EXTRA_USER_PIC = "google_profile_pic_url"
     }
 }
