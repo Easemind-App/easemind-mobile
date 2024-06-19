@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import com.example.easemind.ui.authentication.AuthenticationActivity
 import com.example.easemind.ui.journal.JournalActivity
 import com.example.easemind.R
@@ -16,18 +15,14 @@ import com.example.easemind.ui.authentication.AuthenticationViewModel
 import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    private  lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private val userViewModel by viewModels<AuthenticationViewModel> {
-        AuthenticationViewModelFactory(applicationContext)
+        AuthenticationViewModelFactory.getInstance(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,28 +30,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
         userViewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
-                Log.d("MainActivity", user.toString())
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
+                Log.d("MainActivity", "User not logged in")
+                startActivity(Intent(this, AuthenticationActivity::class.java))
+                finish() // Menutup MainActivity jika pengguna belum login
             } else {
-                observeStories()
-                viewModel.refreshStories()
+                Log.d("MainActivity", "User logged in")
+                initViews()
             }
-
-        binding.checkupButton.setOnClickListener {
-            val intent = Intent(this, QuestionnaireActivity::class.java)
-            startActivity(intent)
         }
+    }
 
+    private fun initViews() {
         bottomNavigationView = binding.bottomNavView
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavigationView.selectedItemId = R.id.home
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -67,31 +54,17 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, JournalActivity::class.java)
                     startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, 0).toBundle())
                     finish()
+                    true
                 }
                 R.id.profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, 0).toBundle())
                     finish()
+                    true
                 }
+                else -> false
             }
-            true
         }
-
     }
 
-    private fun signOut() {
-        mGoogleSignInClient.signOut()
-            .addOnCompleteListener(this) {
-                val intent = Intent(this, AuthenticationActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-    }
-
-    companion object {
-        const val EXTRA_USER_FIRST_NAME = "google_first_name"
-        const val EXTRA_USER_LAST_NAME = "google_last_name"
-        const val EXTRA_USER_EMAIL = "google_email"
-        const val EXTRA_USER_PIC = "google_profile_pic_url"
-    }
 }
