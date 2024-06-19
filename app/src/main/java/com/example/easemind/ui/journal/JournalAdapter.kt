@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.easemind.R
 import com.example.easemind.data.response.JournalsItem
 import com.example.easemind.databinding.ItemJournalBinding
 
@@ -25,7 +26,7 @@ class JournalAdapter : ListAdapter<JournalsItem, JournalAdapter.MyViewHolder>(DI
     class MyViewHolder(private val binding: ItemJournalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(journal: JournalsItem) {
             Glide.with(itemView.context)
-                .load(journal.result)
+                .load(R.drawable.draw_overjoyed)
                 .into(binding.ivItemEmoji) //TODO: create categorization
             binding.tvItemDate.text = journal.journalDate
             binding.tvItemCategory.text = journal.result
@@ -33,7 +34,7 @@ class JournalAdapter : ListAdapter<JournalsItem, JournalAdapter.MyViewHolder>(DI
 
             binding.cardView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailJournalActivity::class.java).apply {
-                    putExtra(DetailJournalActivity.EXTRA_EMOTION, journal.result) // TODO utils
+                    putExtra(DetailJournalActivity.EXTRA_EMOTION, R.drawable.draw_overjoyed) // TODO utils
                     putExtra(DetailJournalActivity.EXTRA_DATE, journal.journalDate)
                     putExtra(DetailJournalActivity.EXTRA_CATEGORY, journal.result)
                     putExtra(DetailJournalActivity.EXTRA_THOUGHTS, journal.thoughts)

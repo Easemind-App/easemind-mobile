@@ -32,8 +32,7 @@ class JournalActivity : AppCompatActivity() {
         binding.rvJournal.layoutManager = layoutManager
 
         authenticationViewModel.getSession().observe(this) { user ->
-
-            authenticationViewModel.getJournal(user.token)
+            authenticationViewModel.getJournal("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDlZMWZXbWtZRGZPdkVCa25YZyIsImlhdCI6MTcxODQ1ODI1NSwiZXhwIjoxNzE5MzIyMjU1fQ.Z059aEUb6AzEQJlXQ9agYyJP3l66A3Xc6-HaxHzmKm4")
             authenticationViewModel.journal.observe(this) {
                 setJournal(it)
             }
