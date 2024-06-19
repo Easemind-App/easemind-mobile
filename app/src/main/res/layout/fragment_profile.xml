@@ -1,60 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
     tools:context=".ui.profile.profileFragment.ProfileFragment">
 
     <LinearLayout
-        android:id="@+id/profile_data_layout"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:background="@color/yellow"
         android:orientation="vertical"
-        android:paddingTop="10dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/profile"
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="75dp">
+
+            <ImageView
+                android:id="@+id/image_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/plusjakartasans_bold"
+            android:gravity="center"
+            android:text="@string/name"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
-            android:orientation="vertical">
+            android:text="@string/email"
+            android:textColor="#67686B"
+            android:textSize="14sp" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                app:cardCornerRadius="75dp">
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/image_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:srcCompat="@tools:sample/avatars" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/plusjakartasans_bold"
-                android:gravity="center"
-                android:text="@string/name"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/plusjakartasans_bold"
-                android:gravity="center"
-                android:text="@string/email"
-                android:textColor="#67686B"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="471dp"
+        android:layout_marginTop="280dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -63,7 +71,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:layout_width="0dp"
@@ -133,4 +142,5 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+
+</FrameLayout>

@@ -2,10 +2,12 @@ package com.example.easemind.ui.profile.editProfileFragment
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,6 +38,8 @@ class EditProfileFragment : Fragment() {
         val gender = resources.getStringArray(R.array.gender)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_gender, gender)
         binding.genderValue.setAdapter(arrayAdapter)
+
+
         return binding.root
     }
 
@@ -65,6 +69,10 @@ class EditProfileFragment : Fragment() {
             editProfile()
         }
 
+        binding.arrowBack.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         editProfileViewModel.editProfile.observe(viewLifecycleOwner) { editProfileResponse ->
             if (editProfileResponse != null) {
                 Toast.makeText(requireContext(), "Profile changed successfully", Toast.LENGTH_SHORT).show()
@@ -79,7 +87,8 @@ class EditProfileFragment : Fragment() {
         val userName = binding.name.text?.toString()?.takeIf { it.isNotBlank() }
         val age = binding.ageValue.text?.toString()
         val genderText = binding.genderValue.text?.toString()
-        val gender = if (genderText == "Laki-laki") "L" else "P"
+        val gender = if (genderText == "Laki-Laki") "L" else "P"
+
 
         lifecycleScope.launch {
             editProfileViewModel.editProfile(userName, age, gender)

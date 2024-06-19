@@ -26,7 +26,7 @@ class EditProfileViewModel(private val userRepository: UserRepository) : ViewMod
         val authorization = "Bearer $token"
 
         val request = EditProfileRequest(userName, age, gender)
-
+        Log.d(TAG, "Request: userName=$userName, age=$age, gender=$gender")
         val client = ApiConfig.getApiService().editProfile(authorization, request)
         client.enqueue(object : Callback<EditProfileResponse> {
             override fun onResponse(

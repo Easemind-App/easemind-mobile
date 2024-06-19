@@ -55,147 +55,77 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/question3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="61sp"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:fontFamily="@font/plusjakartasans_bold"-->
-<!--            android:gravity="center"-->
-<!--            android:text="@string/sleep_quality"-->
-<!--            android:textSize="24sp" />-->
+        <TextView
+            android:id="@+id/question3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="61sp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/plusjakartasans_bold"
+            android:gravity="center"
+            android:text="@string/sleep_quality"
+            android:textSize="24sp" />
 
-        <androidx.cardview.widget.CardView
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/very_poor_btn"
+            style="@android:style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginVertical="8dp"
-            android:elevation="4dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/border"
+            android:text="@string/very_poor"
+            android:textColor="@color/button_text_selector">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        </androidx.appcompat.widget.AppCompatButton>
 
-                <TextView
-                    android:id="@+id/question6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="61sp"
-                    android:layout_marginBottom="25dp"
-                    android:fontFamily="@font/plusjakartasans_bold"
-                    android:gravity="center"
-                    android:text="@string/sleep_quality"
-                    android:textSize="24sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/poor_btn"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/border"
+            android:text="@string/poor"
+            android:textColor="@color/button_text_selector">
 
-                <Button
-                    android:id="@+id/very_poor_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
-                    android:backgroundTint="#F4F4F4"
-                    android:textColor="@color/black"
-                    android:text="@string/very_poor" />
-                <Button
-                    android:id="@+id/poor_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
-                    android:backgroundTint="#F4F4F4"
-                    android:textColor="@color/black"
-                    android:text="@string/poor" />
-                <Button
-                    android:id="@+id/average_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
-                    android:backgroundTint="#F4F4F4"
-                    android:textColor="@color/black"
-                    android:text="@string/average" />
-                <Button
-                    android:id="@+id/good_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
-                    android:backgroundTint="#F4F4F4"
-                    android:textColor="@color/black"
-                    android:text="@string/good" />
-                <Button
-                    android:id="@+id/excellent_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="4dp"
-                    android:paddingVertical="12dp"
-                    android:backgroundTint="#F4F4F4"
-                    android:textColor="@color/black"
-                    android:text="@string/excellent" />
-            </LinearLayout>
+        </androidx.appcompat.widget.AppCompatButton>
 
-        </androidx.cardview.widget.CardView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/average_btn"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/border"
+            android:text="@string/average"
+            android:textColor="@color/button_text_selector">
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/very_poor_btn"-->
-<!--            style="@android:style/Widget.Button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:text="@string/very_poor"-->
-<!--            android:textColor="@color/button_text_selector">-->
+        </androidx.appcompat.widget.AppCompatButton>
 
-<!--        </androidx.appcompat.widget.AppCompatButton>-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/good_btn"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/border"
+            android:text="@string/good"
+            android:textColor="@color/button_text_selector">
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/poor_btn"-->
-<!--            style="@android:style/Widget.Button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:text="@string/poor"-->
-<!--            android:textColor="@color/button_text_selector">-->
+        </androidx.appcompat.widget.AppCompatButton>
 
-<!--        </androidx.appcompat.widget.AppCompatButton>-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/excellent_btn"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/border"
+            android:text="@string/excellent"
+            android:textColor="@color/button_text_selector">
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/average_btn"-->
-<!--            style="@android:style/Widget.Button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:text="@string/average"-->
-<!--            android:textColor="@color/button_text_selector">-->
-
-<!--        </androidx.appcompat.widget.AppCompatButton>-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/good_btn"-->
-<!--            style="@android:style/Widget.Button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:text="@string/good"-->
-<!--            android:textColor="@color/button_text_selector">-->
-
-<!--        </androidx.appcompat.widget.AppCompatButton>-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/excellent_btn"-->
-<!--            style="@android:style/Widget.Button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="25dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:text="@string/excellent"-->
-<!--            android:textColor="@color/button_text_selector">-->
-
-<!--        </androidx.appcompat.widget.AppCompatButton>-->
+        </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/next"
