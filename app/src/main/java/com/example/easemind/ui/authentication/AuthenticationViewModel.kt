@@ -74,6 +74,21 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
         }
     }
 
+    fun getSortJournal(token: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            try {
+                val journals = userRepository.getJournal(token)
+                _journal.value = journals.takeLast(7) // Mengambil 7 jurnal terakhir
+            } catch (e: Exception) {
+                Log.e(TAG, "getJournal: ${e.message}")
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
     fun addJournal(journalDate: String, faceDetection: String, thoughts: String) {
         _isLoading.value = true
         viewModelScope.launch {
