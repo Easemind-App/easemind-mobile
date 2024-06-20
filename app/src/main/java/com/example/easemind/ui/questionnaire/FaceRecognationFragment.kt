@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -20,7 +22,6 @@ import com.example.easemind.databinding.FragmentFaceRecognationBinding
 import com.example.easemind.helper.ImageClassifierHelper
 import com.example.storyapp.view.utils.reduceFileImage
 import com.example.storyapp.view.utils.uriToFile
-import org.tensorflow.lite.task.vision.classifier.Classifications
 
 class FaceRecognationFragment : Fragment() {
 
@@ -54,10 +55,9 @@ class FaceRecognationFragment : Fragment() {
     ): View {
         binding = FragmentFaceRecognationBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -66,7 +66,7 @@ class FaceRecognationFragment : Fragment() {
         binding.arrowBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-        binding.next.setOnClickListener{
+        binding.next.setOnClickListener {
             Log.d("FaceRecognationFragment", "Next button clicked")
             analyzeImage()
             val inputFeelingsFragment = InputFeelingsFragment()
@@ -77,15 +77,6 @@ class FaceRecognationFragment : Fragment() {
                 commit()
             }
         }
-
-
-//        // Ensure the view binding is set properly
-//        binding.next.setOnClickListener {
-//            currentImageUri?.let {
-//                Log.d("Image URI", "Image to be analyzed: $it")
-//                // Add analysis logic here
-//            }
-//        }
     }
 
     private fun startCamera() {
@@ -103,7 +94,6 @@ class FaceRecognationFragment : Fragment() {
     }
 
     private fun startGallery() {
-        // TODO: Mendapatkan gambar dari Gallery.
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
@@ -125,49 +115,44 @@ class FaceRecognationFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun analyzeImage() {
-        // TODO: Menganalisa gambar yang berhasil ditampilkan.
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, requireActivity()).reduceFileImage()
-            Log.d("Image Classification File", "showImage: ${imageFile.path}")
+            Log.d("Image Classification File", "Image File Path: ${imageFile.path}")
 
             imageClassifierHelper = ImageClassifierHelper(
                 context = requireActivity(),
                 classifierListener = object : ImageClassifierHelper.ClassifierListener {
                     override fun onError(error: String) {
                         showToast(error)
-//                        showLoading(false)
                     }
 
-                    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+                    override fun onResults(results: FloatArray?, inferenceTime: Long) {
                         results?.let {
                             moveToResult(it)
                         }
                     }
                 }
             )
+
+            Log.d("Image URI", "Starting classification for URI: $uri")
             imageClassifierHelper.classifyStaticImage(uri, requireActivity())
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 
-    private fun moveToResult(results: List<Classifications>) {
-        val sortedCategories = results[0].categories.sortedByDescending { it?.score }
-        val topResult = sortedCategories.firstOrNull()
+    private fun moveToResult(results: FloatArray) {
+        // Interpret the results from the model and update the UI or handle the results as needed
+        val label = "Result" // Update this with actual logic to interpret results
+        val score = results.maxOrNull() ?: 0.0f
 
-        if (topResult != null) {
-            val label = topResult.label
-            val score = topResult.score ?: 0.0f
+        // Simpan hasil klasifikasi ke dalam variabel
+        classificationResult = Pair(label, score)
 
-            // Simpan hasil klasifikasi ke dalam variabel
-            classificationResult = Pair(label, score)
+        // Cetak log hasil
+        Log.d("Classification Result", "Label: $label, Score: $score")
 
-            // Cetak log hasil
-            Log.d("Classification Result", "Label: $label, Score: $score")
-
-        } else {
-            showToast("No result found")
-        }
-
+        // Perbarui UI dengan hasil klasifikasi
     }
 
 

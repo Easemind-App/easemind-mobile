@@ -9,109 +9,124 @@ import android.provider.MediaStore
 import android.util.Log
 import com.example.easemind.R
 import org.tensorflow.lite.DataType
-import org.tensorflow.lite.support.common.ops.CastOp
+import org.tensorflow.lite.Interpreter
+import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import org.tensorflow.lite.task.core.BaseOptions
-import org.tensorflow.lite.task.vision.classifier.Classifications
-import org.tensorflow.lite.task.vision.classifier.ImageClassifier
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 class ImageClassifierHelper(
-    var threshold: Float = 0.1f,
-    var maxResults: Int = 3,
-    val modelName: String = "model.tflite",
     val context: Context,
     val classifierListener: ClassifierListener?
 ) {
     interface ClassifierListener {
         fun onError(error: String)
         fun onResults(
-            results: List<Classifications>?,
+            results: FloatArray?,
             inferenceTime: Long
         )
     }
 
-    private var imageClassifier: ImageClassifier? = null
+    private var interpreter: Interpreter? = null
 
     init {
-        setupImageClassifier()
+        setupInterpreter()
     }
 
-    private fun setupImageClassifier() {
-        val optionsBuilder = ImageClassifier.ImageClassifierOptions.builder()
-            .setScoreThreshold(threshold)
-            .setMaxResults(maxResults)
-        val baseOptionsBuilder = BaseOptions.builder()
-            .setNumThreads(4)
-        optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
-
+    private fun setupInterpreter() {
         try {
-            imageClassifier = ImageClassifier.createFromFileAndOptions(
-                context,
-                modelName,
-                optionsBuilder.build()
-            )
-        } catch (e: IllegalStateException) {
+            val model = FileUtil.loadMappedFile(context, "model.tflite")
+            val options = Interpreter.Options()
+            options.setNumThreads(4)
+            interpreter = Interpreter(model, options)
+        } catch (e: Exception) {
             classifierListener?.onError(context.getString(R.string.image_classifier_failed))
             Log.e(TAG, e.message.toString())
         }
     }
 
     fun classifyStaticImage(imageUri: Uri, context: Context) {
-        if (imageClassifier == null) {
-            setupImageClassifier()
+        if (interpreter == null) {
+            setupInterpreter()
         }
 
-        val imageProcessor = ImageProcessor.Builder()
-            .add(ResizeOp(48, 48, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
-            .add(CastOp(DataType.FLOAT32))
-            .build()
-
-        val bitmap: Bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             val source = ImageDecoder.createSource(context.contentResolver, imageUri)
-            ImageDecoder.decodeBitmap(source)
+            ImageDecoder.decodeBitmap(source).copy(Bitmap.Config.ARGB_8888, true)
         } else {
-            MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
-        }.copy(Bitmap.Config.ARGB_8888, true)
+            MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri).copy(Bitmap.Config.ARGB_8888, true)
+        }
 
         bitmap?.let {
-            // Convert to greyscale
-            val greyscaleBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(greyscaleBitmap)
-            val paint = Paint()
-            val colorMatrix = ColorMatrix()
-            colorMatrix.setSaturation(0f)
-            val filter = ColorMatrixColorFilter(colorMatrix)
-            paint.colorFilter = filter
-            canvas.drawBitmap(bitmap, 0f, 0f, paint)
+            Log.d(TAG, "Original Bitmap Config: ${it.config}, Width: ${it.width}, Height: ${it.height}")
 
+            // Step 1: Convert the bitmap to grayscale format
+            val grayscaleBitmap = convertToGrayscale(it)
+
+            Log.d(TAG, "Converted Bitmap Config: ${grayscaleBitmap.config}, Width: ${grayscaleBitmap.width}, Height: ${grayscaleBitmap.height}")
+
+            // Step 2: Resize the grayscale bitmap to 48x48
+            val resizedBitmap = Bitmap.createScaledBitmap(grayscaleBitmap, 48, 48, true)
+
+            // Step 3: Convert the resized grayscale bitmap to a float array manually
+            val floatArray = convertBitmapToFloatArray(resizedBitmap)
+
+            // Step 4: Prepare the input buffer
+            val inputBuffer = ByteBuffer.allocateDirect(4 * 48 * 48 * 1).order(ByteOrder.nativeOrder())
+            for (value in floatArray) {
+                inputBuffer.putFloat(value)
+            }
+            inputBuffer.rewind()
+
+            // Step 5: Prepare the output buffer
+            val outputBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 48, 48, 1), DataType.FLOAT32)
+
+            // Step 6: Run the model
             var inferenceTime = SystemClock.uptimeMillis()
-
-            // Convert the greyscale Bitmap to a 1-channel TensorImage
-            val tensorImage = TensorImage(DataType.FLOAT32)
-            tensorImage.load(greyscaleBitmap)
-
-            // TensorImage's internal storage is now a 1D float array.
-            // We need to copy the data to a new buffer with the shape 1 x 48 x 48 x 1
-            val greyscaleBuffer = tensorImage.tensorBuffer
-            val newBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 48, 48, 1), DataType.FLOAT32)
-
-            val greyscaleArray = greyscaleBuffer.floatArray
-            newBuffer.loadArray(greyscaleArray)
-
-            // Update tensorImage with the new buffer
-            tensorImage.load(newBuffer)
-
-            val results = imageClassifier?.classify(tensorImage)
+            interpreter?.run(inputBuffer, outputBuffer.buffer.rewind())
             inferenceTime = SystemClock.uptimeMillis() - inferenceTime
 
+            Log.d(TAG, "Classification result: ${outputBuffer.floatArray.contentToString()}")
+
+            // Return the results
             classifierListener?.onResults(
-                results,
+                outputBuffer.floatArray,
                 inferenceTime
             )
         }
+    }
+
+    private fun convertToGrayscale(bitmap: Bitmap): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+        val grayscaleBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(grayscaleBitmap)
+        val paint = Paint()
+        val colorMatrix = ColorMatrix()
+        colorMatrix.setSaturation(0f)
+        val colorMatrixFilter = ColorMatrixColorFilter(colorMatrix)
+        paint.colorFilter = colorMatrixFilter
+        canvas.drawBitmap(bitmap, 0f, 0f, paint)
+        return grayscaleBitmap
+    }
+
+    private fun convertBitmapToFloatArray(bitmap: Bitmap): FloatArray {
+        val width = bitmap.width
+        val height = bitmap.height
+        val floatArray = FloatArray(width * height)
+
+        val pixels = IntArray(width * height)
+        bitmap.getPixels(pixels, 0, width, 0, 0, width, height)
+
+        for (i in pixels.indices) {
+            val pixel = pixels[i]
+            val red = Color.red(pixel)
+            floatArray[i] = red / 255.0f
+        }
+        return floatArray
     }
 
     companion object {
