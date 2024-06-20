@@ -118,7 +118,8 @@
                         android:id="@+id/card_view_tracking_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -283,7 +284,8 @@
                         android:layout_gravity="center"
                         android:text="Let's Begin Your Journal📝"
                         android:textSize="16sp"
-                        android:fontFamily="@font/plusjakartasans_bold" />
+                        android:fontFamily="@font/plusjakartasans_bold"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -351,4 +353,3 @@
         style="@style/BottomNavigationViewStyle"/>
 
 </RelativeLayout>
-

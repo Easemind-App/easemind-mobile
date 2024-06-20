@@ -116,24 +116,16 @@ class MainActivity : AppCompatActivity() {
             R.id.date_5,
         )
 
-        // Clear any previous content
-        imageViewIds.forEach { id ->
-            findViewById<ImageView>(id).setImageResource(0) // Clear image
-        }
-        textViewIds.forEach { id ->
-            findViewById<TextView>(id).text = "" // Clear text
-        }
-
         val noJournalMessage = findViewById<TextView>(R.id.no_journal_message)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val cardViewTracking = findViewById<View>(R.id.card_view_tracking_content)
+        val cardViewTrackingContent = findViewById<View>(R.id.card_view_tracking_content)
 
         if (journals.isEmpty()) {
             noJournalMessage.visibility = View.VISIBLE
-            cardViewTracking.visibility = View.GONE
+            cardViewTrackingContent.visibility = View.GONE
         } else {
             noJournalMessage.visibility = View.GONE
-            cardViewTracking.visibility = View.VISIBLE
+            cardViewTrackingContent.visibility = View.VISIBLE
 
             journals.takeLast(5).forEachIndexed { index, journal ->
                 val imageView = findViewById<ImageView>(imageViewIds[index])
@@ -150,6 +142,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        val cardViewTrackingContent = findViewById<View>(R.id.card_view_tracking_content)
+        val noJournalMessage = findViewById<TextView>(R.id.no_journal_message)
+
+        if (isLoading) {
+            progressBar.visibility = View.VISIBLE
+            cardViewTrackingContent.visibility = View.GONE
+            noJournalMessage.visibility = View.GONE
+        } else {
+            progressBar.visibility = View.GONE
+        }
     }
 }
