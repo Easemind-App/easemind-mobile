@@ -7,13 +7,9 @@ import android.os.Build
 import android.os.SystemClock
 import android.provider.MediaStore
 import android.util.Log
-import com.example.easemind.R
+import com.example.easemind.ml.FerModelWithMetadata
 import org.tensorflow.lite.DataType
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.tensorflow.lite.support.label.Category
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -25,32 +21,29 @@ class ImageClassifierHelper(
     interface ClassifierListener {
         fun onError(error: String)
         fun onResults(
-            results: FloatArray?,
+            results: List<Category>,
             inferenceTime: Long
         )
     }
 
-    private var interpreter: Interpreter? = null
+    private var model: FerModelWithMetadata? = null
 
     init {
-        setupInterpreter()
+        setupModel()
     }
 
-    private fun setupInterpreter() {
+    private fun setupModel() {
         try {
-            val model = FileUtil.loadMappedFile(context, "model.tflite")
-            val options = Interpreter.Options()
-            options.setNumThreads(4)
-            interpreter = Interpreter(model, options)
+            model = FerModelWithMetadata.newInstance(context)
         } catch (e: Exception) {
-            classifierListener?.onError(context.getString(R.string.image_classifier_failed))
+            classifierListener?.onError("Failed to load model")
             Log.e(TAG, e.message.toString())
         }
     }
 
     fun classifyStaticImage(imageUri: Uri, context: Context) {
-        if (interpreter == null) {
-            setupInterpreter()
+        if (model == null) {
+            setupModel()
         }
 
         val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -81,19 +74,22 @@ class ImageClassifierHelper(
             }
             inputBuffer.rewind()
 
-            // Step 5: Prepare the output buffer
-            val outputBuffer = TensorBuffer.createFixedSize(intArrayOf(1, 48, 48, 1), DataType.FLOAT32)
+            // Step 5: Prepare the input tensor
+            val inputImage = TensorBuffer.createFixedSize(intArrayOf(1, 48, 48, 1), DataType.FLOAT32)
+            inputImage.loadBuffer(inputBuffer)
 
             // Step 6: Run the model
             var inferenceTime = SystemClock.uptimeMillis()
-            interpreter?.run(inputBuffer, outputBuffer.buffer.rewind())
+            val outputs = model?.process(inputImage)
             inferenceTime = SystemClock.uptimeMillis() - inferenceTime
 
-            Log.d(TAG, "Classification result: ${outputBuffer.floatArray.contentToString()}")
+            val probability = outputs?.probabilityAsCategoryList ?: listOf()
+
+            Log.d(TAG, "Classification result: $probability")
 
             // Return the results
             classifierListener?.onResults(
-                outputBuffer.floatArray,
+                probability,
                 inferenceTime
             )
         }

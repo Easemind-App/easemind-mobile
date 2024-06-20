@@ -22,6 +22,7 @@ import com.example.easemind.databinding.FragmentFaceRecognationBinding
 import com.example.easemind.helper.ImageClassifierHelper
 import com.example.storyapp.view.utils.reduceFileImage
 import com.example.storyapp.view.utils.uriToFile
+import org.tensorflow.lite.support.label.Category
 
 class FaceRecognationFragment : Fragment() {
 
@@ -128,10 +129,8 @@ class FaceRecognationFragment : Fragment() {
                         showToast(error)
                     }
 
-                    override fun onResults(results: FloatArray?, inferenceTime: Long) {
-                        results?.let {
-                            moveToResult(it)
-                        }
+                    override fun onResults(results: List<Category>, inferenceTime: Long) {
+                        moveToResult(results)
                     }
                 }
             )
@@ -141,25 +140,21 @@ class FaceRecognationFragment : Fragment() {
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 
-    private fun moveToResult(results: FloatArray) {
-        // Definisikan label kelas sesuai dengan model Anda
-        val labels = listOf("surprise", "fear", "angry", "neutral", "sad", "disgust", "happy")
-
-        // Temukan indeks dengan skor tertinggi
-        val maxIndex = results.indices.maxByOrNull { results[it] } ?: -1
-        val score = if (maxIndex >= 0) results[maxIndex] else 0.0f
-
-        // Dapatkan label yang sesuai dengan indeks
-        val label = if (maxIndex >= 0 && maxIndex < labels.size) labels[maxIndex] else "Unknown"
+    private fun moveToResult(results: List<Category>) {
+        // Temukan probabilitas tertinggi
+        val topResult = results.maxByOrNull { it.score }
 
         // Simpan hasil klasifikasi ke dalam variabel
-        classificationResult = Pair(label, score)
+        if (topResult != null) {
+            classificationResult = Pair(topResult.label, topResult.score)
 
-        // Cetak log hasil
-        Log.d("Classification Result", "Label: $label, Score: $score")
+            // Cetak log hasil
+            Log.d("Classification Result", "Label: ${topResult.label}, Score: ${topResult.score}")
+
+        } else {
+            Log.d("Classification Result", "No result found")
+        }
     }
-
-
 
     private fun showToast(message: String) {
         Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
