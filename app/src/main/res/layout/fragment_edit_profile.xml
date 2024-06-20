@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:gravity="center"
-        android:background="@color/yellow"
+        android:background="@drawable/top_profile_linear"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,8 +79,7 @@
         android:layout_marginTop="280dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintStart_toStartOf="parent">
         <TextView
             android:id="@+id/age"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"

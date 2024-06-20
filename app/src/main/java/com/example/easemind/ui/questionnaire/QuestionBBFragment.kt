@@ -34,7 +34,7 @@ class QuestionBBFragment : Fragment(), View.OnClickListener {
     }
     override fun onClick(v: View) {
         if (v.id == R.id.next) {
-            Log.d("QuestionBBFragment", "Next button clicked")
+            Log.d("QuestionTBFragment", "Next button clicked")
             val questionTBFragment = QuestionTBFragment()
             val fragmentManager = parentFragmentManager
             fragmentManager.beginTransaction().apply {
