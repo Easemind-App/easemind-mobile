@@ -3,6 +3,7 @@ package com.example.easemind.ui.journal
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,6 +27,11 @@ class DetailJournalActivity : AppCompatActivity() {
         binding.result.text = intent.getStringExtra(EXTRA_CATEGORY)
         binding.dateOfJournal.text = intent.getStringExtra(EXTRA_DATE)
         binding.thoughtValue.text = intent.getStringExtra(EXTRA_THOUGHTS)
+
+        val arrowBack = binding.arrowBack
+        arrowBack.setOnClickListener {
+            finish()
+        }
 
         bottomNavigationView = binding.bottomNavView
         bottomNavigationView.selectedItemId = R.id.journal

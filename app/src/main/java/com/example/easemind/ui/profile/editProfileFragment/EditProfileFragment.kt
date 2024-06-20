@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.easemind.R
 import com.example.easemind.data.pref.UserModel
 import com.example.easemind.databinding.FragmentEditProfileBinding
@@ -39,7 +40,6 @@ class EditProfileFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_gender, gender)
         binding.genderValue.setAdapter(arrayAdapter)
 
-
         return binding.root
     }
 
@@ -51,6 +51,12 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun parseArguments() {
+        authenticationViewModel.getSession().observe(viewLifecycleOwner) { userSession ->
+            Glide.with(this)
+                .load(userSession.profilePicture)
+                .into(binding.imageProfile)
+        }
+
         arguments?.let {
             val username = it.getString("username")
             val email = it.getString("email")

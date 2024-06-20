@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.easemind.R
 import com.example.easemind.data.response.UserResponse
 import com.example.easemind.databinding.FragmentProfileBinding
@@ -64,6 +65,10 @@ class ProfileFragment : Fragment() {
 
     private fun observeViewModel() {
         authenticationViewModel.getSession().observe(viewLifecycleOwner) { userSession ->
+            Glide.with(this)
+                .load(userSession.profilePicture)
+                .into(binding.imageProfile)
+
             userSession?.let {
                 profileViewModel.getUserProfile()
             }

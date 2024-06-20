@@ -14,6 +14,7 @@ import com.example.easemind.ui.authentication.AuthenticationViewModel
 import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.homepage.MainActivity
 import com.example.easemind.ui.profile.ProfileActivity
+import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class JournalActivity : AppCompatActivity() {
@@ -39,6 +40,11 @@ class JournalActivity : AppCompatActivity() {
             authenticationViewModel.isLoading.observe(this) {
                 showLoading(it)
             }
+        }
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, QuestionnaireActivity::class.java)
+            startActivity(intent)
         }
 
         bottomNavigationView = binding.bottomNavView
