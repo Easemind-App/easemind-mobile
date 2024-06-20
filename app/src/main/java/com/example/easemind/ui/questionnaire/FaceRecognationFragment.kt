@@ -142,18 +142,23 @@ class FaceRecognationFragment : Fragment() {
     }
 
     private fun moveToResult(results: FloatArray) {
-        // Interpret the results from the model and update the UI or handle the results as needed
-        val label = "Result" // Update this with actual logic to interpret results
-        val score = results.maxOrNull() ?: 0.0f
+        // Definisikan label kelas sesuai dengan model Anda
+        val labels = listOf("surprise", "fear", "angry", "neutral", "sad", "disgust", "happy")
+
+        // Temukan indeks dengan skor tertinggi
+        val maxIndex = results.indices.maxByOrNull { results[it] } ?: -1
+        val score = if (maxIndex >= 0) results[maxIndex] else 0.0f
+
+        // Dapatkan label yang sesuai dengan indeks
+        val label = if (maxIndex >= 0 && maxIndex < labels.size) labels[maxIndex] else "Unknown"
 
         // Simpan hasil klasifikasi ke dalam variabel
         classificationResult = Pair(label, score)
 
         // Cetak log hasil
         Log.d("Classification Result", "Label: $label, Score: $score")
-
-        // Perbarui UI dengan hasil klasifikasi
     }
+
 
 
     private fun showToast(message: String) {
