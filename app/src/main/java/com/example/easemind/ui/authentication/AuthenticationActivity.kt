@@ -43,7 +43,6 @@ class AuthenticationActivity : AppCompatActivity() {
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                Log.d("AuthenticationActivity", "Google sign-in successful")
                 handleSignInResult(task)
             } else {
                 Log.e("Google Sign-In Code", result.resultCode.toString())
@@ -58,8 +57,11 @@ class AuthenticationActivity : AppCompatActivity() {
 
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
-        Log.d("AuthenticationActivity", "Launching Google sign-in intent")
-        signInLauncher.launch(signInIntent)
+        if (signInIntent != null) {
+            signInLauncher.launch(signInIntent)
+        } else {
+            Log.e("Google Sign-In", "Sign-in intent is null")
+        }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -80,7 +82,8 @@ class AuthenticationActivity : AppCompatActivity() {
 
             authenticationViewModel.login(googleEmail, googleFirstName)
             authenticationViewModel.loginUser.observe(this) {
-                authenticationViewModel.saveSession(UserModel(googleEmail, googleFirstName, null, null, it.token, googleProfilePicURL))
+                val user = UserModel(googleEmail, googleFirstName, null, null, it.token, googleProfilePicURL)
+                authenticationViewModel.saveSession(user)
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
 

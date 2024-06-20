@@ -4,6 +4,7 @@ import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -32,19 +33,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        authenticationViewModel.getSession().observe(this) { session ->
+            val username = session.username
+            binding.name.text = "Hi, $username! 👋"
+            Glide.with(this@MainActivity)
+                .load(session.profilePicture)
+                .into(binding.imageProfile)
+        }
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-
-        authenticationViewModel.getSession().observe(this) { user ->
-            val username = user.username
-            binding.name.text = getString(R.string.name, username)
-            Glide.with(this)
-                .load(user.profilePicture)
-                .into(this.binding.imageProfile)
-        }
 
         binding.checkupButton.setOnClickListener {
             val intent = Intent(this, QuestionnaireActivity::class.java)
