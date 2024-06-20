@@ -21,8 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var binding: ActivityMainBinding
     private val authenticationViewModel by viewModels<AuthenticationViewModel> {
         AuthenticationViewModelFactory.getInstance(context = this)

@@ -16,7 +16,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
 
     fun getUserProfile() {
         viewModelScope.launch {
-            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDlZMWZXbWtZRGZPdkVCa25YZyIsImlhdCI6MTcxODQ1ODI1NSwiZXhwIjoxNzE5MzIyMjU1fQ.Z059aEUb6AzEQJlXQ9agYyJP3l66A3Xc6-HaxHzmKm4"
+            val token = userRepository.getSession().first().token
             val authorization = "Bearer $token"
             try {
                 val userResponse = userRepository.getUserProfile(authorization)
