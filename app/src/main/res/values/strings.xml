@@ -63,7 +63,7 @@
     <string name="thought_value">awww aku dimarahin mamah.</string>
 
     <string-array name="gender">
-        <item>Laki-Laki</item>
-        <item>Perempuan</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 </resources>

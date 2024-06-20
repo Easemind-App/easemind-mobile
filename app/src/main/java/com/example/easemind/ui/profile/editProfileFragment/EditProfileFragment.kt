@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -93,8 +92,7 @@ class EditProfileFragment : Fragment() {
         val userName = binding.name.text?.toString()?.takeIf { it.isNotBlank() }
         val age = binding.ageValue.text?.toString()
         val genderText = binding.genderValue.text?.toString()
-        val gender = if (genderText == "Laki-Laki") "L" else "P"
-
+        val gender = if (genderText == "Male") "L" else "P"
 
         lifecycleScope.launch {
             editProfileViewModel.editProfile(userName, age, gender)

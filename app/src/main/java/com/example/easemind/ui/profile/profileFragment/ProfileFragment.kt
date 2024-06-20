@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("username", binding.name.text.toString())
             bundle.putString("email", binding.email.text.toString())
-            bundle.putString("age", binding.ageValue.text.toString())
+            bundle.putString("age", binding.ageValue.text.toString().removeSuffix(" years old"))
             bundle.putString("gender", binding.genderValue.text.toString())
             editProfileFragment.arguments = bundle
 
@@ -84,10 +84,10 @@ class ProfileFragment : Fragment() {
         userProfile?.let {
             binding.name.text = it.userName
             binding.email.text = it.email
-            binding.ageValue.text = it.age
+            binding.ageValue.text = "${it.age} years old"
             binding.genderValue.text = when (it.gender) {
-                "L" -> "Laki-laki"
-                "P" -> "Perempuan"
+                "L" -> "Male"
+                "P" -> "Female"
                 else -> it.gender
             }
         }
