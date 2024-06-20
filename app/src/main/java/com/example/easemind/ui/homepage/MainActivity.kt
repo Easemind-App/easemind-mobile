@@ -4,8 +4,9 @@ import com.example.easemind.ui.questionnaire.QuestionnaireActivity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -100,41 +101,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayJournals(journals: List<JournalsItem>) {
-        val imageViewIds = listOf(
-            R.id.iv_item_emoji_1,
-            R.id.iv_item_emoji_2,
-            R.id.iv_item_emoji_3,
-            R.id.iv_item_emoji_4,
-            R.id.iv_item_emoji_5,
-        )
-
-        val textViewIds = listOf(
-            R.id.date_1,
-            R.id.date_2,
-            R.id.date_3,
-            R.id.date_4,
-            R.id.date_5,
-        )
-
         val noJournalMessage = findViewById<TextView>(R.id.no_journal_message)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        val cardViewTrackingContent = findViewById<View>(R.id.card_view_tracking_content)
+        val cardViewTrackingContent = findViewById<LinearLayout>(R.id.card_view_tracking_content)
 
         if (journals.isEmpty()) {
             noJournalMessage.visibility = View.VISIBLE
             cardViewTrackingContent.visibility = View.GONE
+            Log.e("Empty", "Empty Journal")
         } else {
+            Log.e("Not Empty", "Not Empty Journal")
             noJournalMessage.visibility = View.GONE
             cardViewTrackingContent.visibility = View.VISIBLE
+            cardViewTrackingContent.removeAllViews()
 
-            journals.takeLast(5).forEachIndexed { index, journal ->
-                val imageView = findViewById<ImageView>(imageViewIds[index])
-                Glide.with(this)
-                    .load(R.drawable.draw_overjoyed)
-                    .into(imageView)
+            journals.takeLast(5).forEach { journal ->
+                val itemRecap = ItemRecap(this)
+                itemRecap.setDateText(journal.journalDate)
+                itemRecap.setEmojiDrawable(R.drawable.draw_overjoyed)
 
-                val textView = findViewById<TextView>(textViewIds[index])
-                textView?.text = journal.journalDate
+                val layoutParams = LinearLayout.LayoutParams(
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1f
+                )
+                itemRecap.layoutParams = layoutParams
+                cardViewTrackingContent.addView(itemRecap)
             }
         }
         progressBar.visibility = View.GONE
