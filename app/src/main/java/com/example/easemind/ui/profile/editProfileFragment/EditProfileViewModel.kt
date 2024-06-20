@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.easemind.data.EditProfileRequest
+import com.example.easemind.data.request.EditProfileRequest
 import com.example.easemind.data.repository.UserRepository
 import com.example.easemind.data.response.EditProfileResponse
 import com.example.easemind.data.retrofit.ApiConfig

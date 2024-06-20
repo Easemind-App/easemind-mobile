@@ -7,45 +7,65 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.example.easemind.R
+import com.example.easemind.databinding.FragmentInputFeelingsBinding
+import com.example.easemind.ui.authentication.AuthenticationViewModel
+import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class InputFeelingsFragment : Fragment(), View.OnClickListener {
+class InputFeelingsFragment : Fragment(){
+
+    private lateinit var binding: FragmentInputFeelingsBinding
+    private val authenticationViewModel by viewModels<AuthenticationViewModel> {
+        AuthenticationViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_input_feelings, container, false)
+        binding = FragmentInputFeelingsBinding.inflate(inflater, container, false)
+        return binding.root
 
-        val arrowBack = view.findViewById<ImageView>(R.id.arrow_back)
-        arrowBack.setOnClickListener {
-            // Handle the back navigation
-            parentFragmentManager.popBackStack()
-        }
-        return view
-    }
-
-    override fun onClick(v: View?) {
-        if (v != null) {
-            if (v.id == R.id.analyze) {
-                Log.d("ResultFragment", "Analyze button clicked")
-                val resultFragment = ResultFragment()
-                val fragmentManager = parentFragmentManager
-                fragmentManager.beginTransaction().apply {
-                    replace(R.id.container, resultFragment, ResultFragment::class.java.simpleName)
-                    addToBackStack(null)
-                    commit()
-                }
-            }
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnAnalyze: Button = view.findViewById(R.id.analyze)
-        btnAnalyze.setOnClickListener(this)
+
+        binding.arrowBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        binding.analyze.setOnClickListener{
+            Log.d("InputFeelingsFragment", "Analyze button clicked")
+
+            // Ambil tanggal hari ini
+            val currentDate = getCurrentDate()
+
+            // Ambil isi dari TextInputEditText
+            val thoughts = binding.textFieldFeeling.editText?.text.toString()
+
+            // Panggil fungsi addJournal dari ViewModel untuk menambahkan jurnal
+            authenticationViewModel.addJournal(currentDate, "Neutral", thoughts)
+
+            // Navigate ke ResultFragment setelah menambahkan jurnal
+            val resultFragment = ResultFragment()
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.container, resultFragment, ResultFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
+        }
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return dateFormat.format(Date())
     }
 
 

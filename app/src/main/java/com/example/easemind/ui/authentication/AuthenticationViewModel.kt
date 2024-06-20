@@ -6,12 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.easemind.data.AuthenticationRequest
+import com.example.easemind.data.request.AuthenticationRequest
 import com.example.easemind.data.pref.UserModel
 import com.example.easemind.data.repository.UserRepository
+import com.example.easemind.data.request.JournalRequest
 import com.example.easemind.data.response.AuthenticationResponse
+import com.example.easemind.data.response.JournalResponse
 import com.example.easemind.data.response.JournalsItem
 import com.example.easemind.data.retrofit.ApiConfig
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +29,9 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _addJournalResult = MutableLiveData<JournalResponse>()
+    val addJournalResult: LiveData<JournalResponse> = _addJournalResult
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
@@ -65,6 +71,24 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
         viewModelScope.launch {
             _journal.value = userRepository.getJournal(token)
             _isLoading.value = false
+        }
+    }
+
+    fun addJournal(journalDate: String, faceDetection: String, thoughts: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            val token = userRepository.getSession().first().token
+            Log.d("token", token)
+            val authorization = "Bearer $token"
+            try {
+                val request = JournalRequest(journalDate, faceDetection, thoughts)
+                val response = ApiConfig.getApiService().addJournal(token, request)
+                _addJournalResult.value = response
+            } catch (e: Exception) {
+                Log.e(TAG, "addJournal: ${e.message}")
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 

@@ -7,15 +7,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.easemind.R
 import com.example.easemind.databinding.FragmentFaceRecognationBinding
 import com.example.easemind.databinding.FragmentResultBinding
+import com.example.easemind.ui.authentication.AuthenticationViewModel
+import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.homepage.MainActivity
+import com.example.easemind.ui.journal.DetailJournalActivity
 import com.example.easemind.ui.journal.JournalActivity
 
 class ResultFragment : Fragment() {
 
     private lateinit var binding: FragmentResultBinding
+    private val authenticationViewModel by viewModels<AuthenticationViewModel> {
+        AuthenticationViewModelFactory.getInstance(requireActivity())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +40,17 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        authenticationViewModel.addJournalResult.observe(viewLifecycleOwner) { result ->
+            result?.let {
+//                // Update UI to show the result of the added journal
+//                Glide.with(requireActivity())
+//                    .load(R.drawable.draw_overjoyed)
+//                    .into(binding.ivItemEmoji) //TODO: create categorization
+//                binding.dateOfJournal.text = result.journals.result
+//                binding.tvItemCategory.text = journal.result
+//                binding.thoughtValue.text = journal.thoughts
+            }
+        }
 
         binding.arrowBack.setOnClickListener {
             requireActivity().onBackPressed()

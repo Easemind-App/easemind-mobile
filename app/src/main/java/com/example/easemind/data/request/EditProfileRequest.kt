@@ -1,4 +1,4 @@
-package com.example.easemind.data
+package com.example.easemind.data.request
 
 data class EditProfileRequest(
     val userName: String?,
