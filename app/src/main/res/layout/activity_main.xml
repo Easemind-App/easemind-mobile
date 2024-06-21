@@ -8,72 +8,73 @@
     android:background="@color/yellow"
     tools:context=".ui.homepage.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:background="@color/yellow">
+
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:background="@color/yellow">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="37dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginRight="37dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="50dp">
+
+                <ImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="220dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="37dp"
-                android:layout_marginTop="37dp"
-                android:layout_marginRight="37dp"
-                android:orientation="horizontal">
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:cardCornerRadius="50dp">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plusjakartasans_bold"
+                    android:text="@string/name"
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:id="@+id/image_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:srcCompat="@tools:sample/avatars" />
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="220dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/plusjakartasans_bold"
-                        android:text="@string/name"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/plusjakartasans_regular"
-                        android:text="@string/homepage_description" />
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plusjakartasans_regular"
+                    android:text="@string/homepage_description" />
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/checkup_button"
-                style="@android:style/Widget.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/button_square_blue"
-                android:text="@string/checkup_button"
-                android:textColor="@color/white">
-            </androidx.appcompat.widget.AppCompatButton>
-
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkup_button"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/button_square_blue"
+            android:enabled="true"
+            android:text="@string/checkup_button"
+            android:textColor="@color/white">
+        </androidx.appcompat.widget.AppCompatButton>
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/main_content"
@@ -85,7 +86,7 @@
         app:cardCornerRadius="28dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="28dp">
@@ -97,6 +98,7 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/plusjakartasans_bold"
                 android:text="@string/recap_of_your_feelings"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
@@ -110,8 +112,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/color_gradient_card"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
+                    <!-- Content Layout -->
+                    <LinearLayout
+                        android:id="@+id/card_view_tracking_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:visibility="gone">
+                        <!-- Items will be added here -->
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <!-- ProgressBar -->
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="visible" />
+
+                        <!-- No Journal Message -->
+                        <TextView
+                            android:id="@+id/no_journal_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:text="Let's Begin Your Journal 📝"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/plusjakartasans_bold"
+                            android:visibility="gone"/>
+                    </FrameLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -120,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:textColor="@color/black"
                 android:fontFamily="@font/plusjakartasans_bold"
                 android:text="@string/take_care_your_health"
                 android:textSize="16sp" />
@@ -175,11 +212,6 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/light_grey"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:menu="@menu/bottom_nav_bar" />
+        style="@style/BottomNavigationViewStyle"/>
+
 </RelativeLayout>

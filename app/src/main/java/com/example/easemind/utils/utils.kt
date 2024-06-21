@@ -5,6 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import java.io.ByteArrayOutputStream
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import androidx.core.content.ContextCompat
+import com.example.easemind.R
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -47,4 +51,10 @@ fun File.reduceFileImage(): File {
     } while (streamLength > MAXIMAL_SIZE)
     bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
+  
+fun emotionCategoryImageCategory(emotion: String) : Int {
+    if (emotion.contentEquals("sad")) {
+        return R.drawable.draw_not_good
+    }
+    return R.drawable.draw_overjoyed
 }

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.easemind.data.repository.UserRepository
+import com.example.easemind.data.retrofit.ApiConfig
+import com.example.easemind.data.retrofit.ApiService
 import com.example.easemind.di.UserInjection
 
 class AuthenticationViewModelFactory(private val userRepository: UserRepository) :  ViewModelProvider.NewInstanceFactory() {
@@ -23,7 +25,7 @@ class AuthenticationViewModelFactory(private val userRepository: UserRepository)
         fun getInstance(context: Context): AuthenticationViewModelFactory {
             if (instance == null) {
                 synchronized(AuthenticationViewModelFactory::class.java) {
-                    instance = AuthenticationViewModelFactory(UserInjection.provideRepository(context))
+                    instance = AuthenticationViewModelFactory(UserInjection.provideRepository(context, ApiConfig.getApiService()))
                 }
             }
             return instance as AuthenticationViewModelFactory

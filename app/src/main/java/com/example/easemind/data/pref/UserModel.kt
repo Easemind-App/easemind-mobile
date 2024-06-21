@@ -7,4 +7,5 @@ data class UserModel(
     val gender: String,
     val token: String,
     val isLogin: Boolean = false
+    val profilePicture: String
 )

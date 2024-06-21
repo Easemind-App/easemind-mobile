@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plusjakartasans_bold"
                 android:padding="9dp"
-                android:text="Question 4"
+                android:text="Question 3"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/arrow_back"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/plusjakartasans_bold"
                 android:padding="9dp"
-                android:text="4/5"
+                android:text="3/4"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             android:id="@+id/question4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="61sp"
+            android:layout_marginTop="41sp"
             android:fontFamily="@font/plusjakartasans_bold"
             android:gravity="center"
             android:text="@string/face_recognation"
@@ -76,11 +76,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/button_square_blue"
+            android:background="@drawable/button_border_blue"
             android:text="@string/camera"
-            android:textColor="@color/white">
+            android:textColor="@color/blue">
 
         </androidx.appcompat.widget.AppCompatButton>
 

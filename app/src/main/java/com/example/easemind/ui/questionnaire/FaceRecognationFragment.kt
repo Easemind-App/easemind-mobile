@@ -24,7 +24,7 @@ import com.example.storyapp.view.utils.reduceFileImage
 import com.example.storyapp.view.utils.uriToFile
 import org.tensorflow.lite.support.label.Category
 
-class FaceRecognationFragment : Fragment() {
+class FaceRecognationFragment : Fragment(){
 
     private var currentImageUri: Uri? = null
     private lateinit var binding: FragmentFaceRecognationBinding

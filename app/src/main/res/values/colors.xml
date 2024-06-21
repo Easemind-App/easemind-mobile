@@ -13,9 +13,10 @@
     <color name="blue_main">#3870E1</color>
     <color name="orange_bg">#F4B75E</color>
     <color name="yellow_bg">#F8D779</color>
+    <color name="red">#C62828</color>
 
     <!--  Secondary Colors  -->
-    <color name="blue_secondary">#7BB7F7</color>
+    <color name="blue_secondary">#509CED</color>
     <color name="indigo_secondary">#5F70DA</color>
 
     <!--  Tertiary Colors  -->
