@@ -20,8 +20,18 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "androidreleasekey"
+            keyPassword = "Easemind"
+            storeFile = file("../release.keystore")
+            storePassword = "Easemind"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
