@@ -21,9 +21,6 @@ import com.example.easemind.ui.authentication.AuthenticationViewModel
 import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -71,8 +68,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+//        userViewModel.getSession().observe(this) { user ->
+//            if (!user.isLogin) {
+//                Log.d("MainActivity", "User not logged in")
+//                startActivity(Intent(this, AuthenticationActivity::class.java))
+//                finish() // Menutup MainActivity jika pengguna belum login
+//            } else {
+//                Log.d("MainActivity", "User logged in")
+//                initViews()
+//            }
+//        }
+    }
+
+    private fun initViews() {
         bottomNavigationView = binding.bottomNavView
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavigationView.selectedItemId = R.id.home
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -83,16 +93,17 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, JournalActivity::class.java)
                     startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, 0).toBundle())
                     finish()
+                    true
                 }
                 R.id.profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, 0).toBundle())
                     finish()
+                    true
                 }
+                else -> false
             }
-            true
         }
-
     }
 
     private fun displayJournals(journals: List<JournalsItem>) {

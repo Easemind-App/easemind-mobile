@@ -63,6 +63,9 @@
     <string name="emotion">Emotion</string>
     <string name="thought_value">awww aku dimarahin mamah.</string>
 
+    <string name="image_classifier_failed">Image classifier failed to initialize. See error logs for details</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

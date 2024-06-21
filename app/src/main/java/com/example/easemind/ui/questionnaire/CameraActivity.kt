@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.easemind.R
 import com.example.easemind.databinding.ActivityCameraBinding
+import com.example.easemind.helper.ImageClassifierHelper
 import com.example.storyapp.view.utils.createCustomTempFile
 
 class CameraActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
