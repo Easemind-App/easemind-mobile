@@ -30,6 +30,7 @@
 
     <!--  Authentication  -->
     <string name="google_login">Log in with Google</string>
+    <string name="logout">Logout</string>
     <string name="welcome">We are so glad to see you here.</string>
     <string name="welcome_to">welcome to</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
