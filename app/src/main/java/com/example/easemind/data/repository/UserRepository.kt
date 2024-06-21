@@ -37,7 +37,7 @@ class UserRepository private constructor(
                 val response = apiService.getUserJournal("Bearer $token")
                 response.journals
             } catch (e: Exception) {
-                Log.e(TAG, "getStories: ${e.message}", e)
+                Log.e(TAG, "getJournal: ${e.message}", e)
                 emptyList()
             }
         }

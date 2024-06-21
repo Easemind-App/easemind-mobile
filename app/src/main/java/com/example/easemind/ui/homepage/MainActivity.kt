@@ -20,6 +20,9 @@ import com.example.easemind.databinding.ActivityMainBinding
 import com.example.easemind.ui.authentication.AuthenticationViewModel
 import com.example.easemind.ui.authentication.AuthenticationViewModelFactory
 import com.example.easemind.ui.profile.ProfileActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
+        initViews()
 
         authenticationViewModel.getSession().observe(this) { user ->
             val username = user.username
@@ -68,17 +72,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-//        userViewModel.getSession().observe(this) { user ->
-//            if (!user.isLogin) {
-//                Log.d("MainActivity", "User not logged in")
-//                startActivity(Intent(this, AuthenticationActivity::class.java))
-//                finish() // Menutup MainActivity jika pengguna belum login
-//            } else {
-//                Log.d("MainActivity", "User logged in")
-//                initViews()
-//            }
-//        }
     }
 
     private fun initViews() {

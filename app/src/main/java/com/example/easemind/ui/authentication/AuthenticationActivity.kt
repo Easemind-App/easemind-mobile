@@ -82,7 +82,7 @@ class AuthenticationActivity : AppCompatActivity() {
 
             authenticationViewModel.login(googleEmail, googleFirstName)
             authenticationViewModel.loginUser.observe(this) {
-                val user = UserModel(googleEmail, googleFirstName, null, null, it.token, googleProfilePicURL)
+                val user = UserModel(googleEmail, googleFirstName, null, null, it.token, profilePicture = googleProfilePicURL)
                 authenticationViewModel.saveSession(user)
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
