@@ -3,6 +3,7 @@ package com.example.easemind.ui.journal
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +74,7 @@ class JournalActivity : AppCompatActivity() {
 
     private fun setJournal(journals: List<JournalsItem>) {
         val adapter = JournalAdapter()
+        Log.e("Journals", journals.toString())
         adapter.submitList(journals)
         binding.rvJournal.adapter = adapter
     }

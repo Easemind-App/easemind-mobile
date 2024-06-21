@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayJournals(journals: List<JournalsItem>) {
+        Log.e("Display Journal", "adapter")
         val noJournalMessage = findViewById<TextView>(R.id.no_journal_message)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         val cardViewTrackingContent = findViewById<LinearLayout>(R.id.card_view_tracking_content)

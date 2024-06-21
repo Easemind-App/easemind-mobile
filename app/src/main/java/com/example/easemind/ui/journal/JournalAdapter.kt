@@ -1,6 +1,7 @@
 package com.example.easemind.ui.journal
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -25,6 +26,7 @@ class JournalAdapter : ListAdapter<JournalsItem, JournalAdapter.MyViewHolder>(DI
 
     class MyViewHolder(private val binding: ItemJournalBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(journal: JournalsItem) {
+            Log.e("Adapter Journal", "adapter")
             Glide.with(itemView.context)
                 .load(R.drawable.draw_overjoyed)
                 .into(binding.ivItemEmoji) //TODO: create categorization

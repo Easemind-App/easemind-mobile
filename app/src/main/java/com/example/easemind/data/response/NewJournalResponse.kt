@@ -3,16 +3,15 @@ package com.example.easemind.data.response
 import com.google.gson.annotations.SerializedName
 
 data class NewJournalResponse(
-
 	@field:SerializedName("journals")
-	val journals: Journals? = null
+	val journals: Journals
 )
 
 data class Journals(
 
 	@field:SerializedName("checkpoint")
-	val checkpoint: Boolean? = null,
+	val checkpoint: Boolean,
 
 	@field:SerializedName("journals")
-	val journals: List<JournalsItem?>? = null
+	val journals: List<JournalsItem>
 )

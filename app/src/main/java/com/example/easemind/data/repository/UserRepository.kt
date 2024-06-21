@@ -27,7 +27,7 @@ class UserRepository private constructor(
     suspend fun getJournalCheckpoint(token: String) : Boolean {
         return withContext(Dispatchers.IO) {
             val response = apiService.getUserJournal("Bearer $token")
-            response.checkpoint
+            response.journals.checkpoint
         }
     }
 
@@ -35,7 +35,7 @@ class UserRepository private constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getUserJournal("Bearer $token")
-                response.journals
+                response.journals.journals
             } catch (e: Exception) {
                 Log.e(TAG, "getJournal: ${e.message}", e)
                 emptyList()

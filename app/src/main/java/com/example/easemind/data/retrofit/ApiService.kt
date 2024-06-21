@@ -7,6 +7,7 @@ import com.example.easemind.data.response.AddJournalResponse
 import com.example.easemind.data.response.AuthenticationResponse
 import com.example.easemind.data.response.JournalResponse
 import com.example.easemind.data.response.EditProfileResponse
+import com.example.easemind.data.response.NewJournalResponse
 import com.example.easemind.data.response.UserResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -35,7 +36,7 @@ interface ApiService {
     @GET("journals")
     suspend fun getUserJournal (
         @Header("Authorization") token: String
-    ) : JournalResponse
+    ) : NewJournalResponse
 
     @POST("journals/create")
     suspend fun addJournal (
