@@ -19,13 +19,12 @@ Dealing with stress and depression is tough, and existing tools often fall short
 3. In order to use scan garbage type feature, you need to give camera permission so our app can get image using your phone camera.
 4. Don't forget to have proper internet connection so you don't have problem while making garbage order or taking garbage order.
 
-## Mobile Tech Stack 😎
-1. Kotlin
-2. Tensor Flow Lite
-3. Android Studio
-
 ## Wanna run this project locally? 💻
-To run this project in your machine please follow this steps
+To run this project in your machine please follow this steps:
 1. Make sure in your computer already installed Android Studio
-2. Clone this project
-3. Run the application in your local machine
+2. Fork, Clone, or Download the Repository
+3. Open the Project in Android Studio
+4. Sync Project with Gradle Files
+5. Set Up the Android SDK
+6. Build the Project
+7. Run the Application
