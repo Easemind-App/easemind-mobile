@@ -69,6 +69,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/button_square_blue"
+            android:enabled="true"
             android:text="@string/checkup_button"
             android:textColor="@color/white">
         </androidx.appcompat.widget.AppCompatButton>

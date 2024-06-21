@@ -3,6 +3,7 @@ package com.example.easemind.data.retrofit
 import com.example.easemind.data.request.AuthenticationRequest
 import com.example.easemind.data.request.EditProfileRequest
 import com.example.easemind.data.request.JournalRequest
+import com.example.easemind.data.response.AddJournalResponse
 import com.example.easemind.data.response.AuthenticationResponse
 import com.example.easemind.data.response.JournalResponse
 import com.example.easemind.data.response.EditProfileResponse
@@ -40,6 +41,6 @@ interface ApiService {
     suspend fun addJournal (
         @Header("Authorization") token: String,
         @Body request: JournalRequest
-    ) : JournalResponse
+    ) : AddJournalResponse
 
 }

@@ -24,6 +24,13 @@ class UserRepository private constructor(
         return userPreference.getSession()
     }
 
+    suspend fun getJournalCheckpoint(token: String) : Boolean {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.getUserJournal("Bearer $token")
+            response.checkpoint
+        }
+    }
+
     suspend fun getJournal(token: String) : List<JournalsItem> {
         return withContext(Dispatchers.IO) {
             try {

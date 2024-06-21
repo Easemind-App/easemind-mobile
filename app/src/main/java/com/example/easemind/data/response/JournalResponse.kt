@@ -7,8 +7,14 @@ data class JournalResponse(
 	@field:SerializedName("journals")
 	val journals: List<JournalsItem>,
 
+	@field:SerializedName("checkpoint")
+	val checkpoint: Boolean,
+)
+
+data class AddJournalResponse(
+
 	@field:SerializedName("message")
-	val message: String,
+	val message: String
 )
 
 data class JournalsItem(

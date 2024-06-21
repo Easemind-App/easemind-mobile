@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.easemind.data.request.AuthenticationRequest
 import com.example.easemind.data.pref.UserModel
 import com.example.easemind.data.repository.UserRepository
+import com.example.easemind.data.request.JournalData
 import com.example.easemind.data.request.JournalRequest
+import com.example.easemind.data.response.AddJournalResponse
 import com.example.easemind.data.response.AuthenticationResponse
 import com.example.easemind.data.response.JournalResponse
 import com.example.easemind.data.response.JournalsItem
@@ -30,8 +32,11 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _addJournalResult = MutableLiveData<JournalResponse>()
-    val addJournalResult: LiveData<JournalResponse> = _addJournalResult
+    private val _addJournalResult = MutableLiveData<AddJournalResponse>()
+    val addJournalResult: LiveData<AddJournalResponse> = _addJournalResult
+
+    private val _journalCheckpoint = MutableLiveData<Boolean>()
+    val journalCheckpoint: LiveData<Boolean> = _journalCheckpoint
 
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
@@ -74,6 +79,14 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
         }
     }
 
+    fun getJournalCheckpoint(token: String) {
+        _isLoading.value = true
+        viewModelScope.launch {
+            _journalCheckpoint.value = userRepository.getJournalCheckpoint(token)
+            _isLoading.value = false
+        }
+    }
+
     fun getSortJournal(token: String) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -88,7 +101,6 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
         }
     }
 
-
     fun addJournal(journalDate: String, faceDetection: String, thoughts: String) {
         _isLoading.value = true
         viewModelScope.launch {
@@ -96,7 +108,10 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
             Log.d("token", token)
             val authorization = "Bearer $token"
             try {
-                val request = JournalRequest(journalDate, faceDetection, thoughts)
+                val journalData = JournalData(journalDate, faceDetection, thoughts)
+
+                // If user can addJournal then no journal has been added in the same data
+                val request = JournalRequest(true, journalData)
                 val response = ApiConfig.getApiService().addJournal(token, request)
                 _addJournalResult.value = response
             } catch (e: Exception) {

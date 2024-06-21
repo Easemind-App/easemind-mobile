@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity() {
                 displayJournals(journals)
             }
 
+            authenticationViewModel.journalCheckpoint.observe(this) {
+                setCheckupButton(it)
+            }
+
             authenticationViewModel.isLoading.observe(this) { isLoading ->
                 showLoading(isLoading)
             }
@@ -91,15 +95,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun signOut() {
-        mGoogleSignInClient.signOut()
-            .addOnCompleteListener(this) {
-                val intent = Intent(this, AuthenticationActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-    }
-
     private fun displayJournals(journals: List<JournalsItem>) {
         val noJournalMessage = findViewById<TextView>(R.id.no_journal_message)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
@@ -108,9 +103,7 @@ class MainActivity : AppCompatActivity() {
         if (journals.isEmpty()) {
             noJournalMessage.visibility = View.VISIBLE
             cardViewTrackingContent.visibility = View.GONE
-            Log.e("Empty", "Empty Journal")
         } else {
-            Log.e("Not Empty", "Not Empty Journal")
             noJournalMessage.visibility = View.GONE
             cardViewTrackingContent.visibility = View.VISIBLE
             cardViewTrackingContent.removeAllViews()
@@ -130,6 +123,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         progressBar.visibility = View.GONE
+    }
+
+    private fun setCheckupButton(checkpoint: Boolean) {
+        binding.checkupButton.isEnabled = checkpoint
     }
 
     private fun showLoading(isLoading: Boolean) {
